@@ -1,7 +1,23 @@
 # **SAL** - Sport Activity Log#
 
-Web-Applikation für Sportaktivitäten
+Eine Web-Applikation für Sportaktivitäten
 
-Bei *Sport Activity Log* handelt es sich um eine Web-App, die die Möglichkeit bietet, seine Sportaktivitäten für zu verwalten.
+Bei **S**port **A**ctivity **L**og handelt es sich um eine Web-App, die die Möglichkeit bietet, seine Sportaktivitäten zu verwalten.
+
+Die Anwendung teilt sich in zwei Projekte auf:
+
+* **sal_server**: Komponenten der Server-Anwendung
+
+* **sal_client**: Komponenten der Web-Anwendung
 
 ## Start App ##
+
+## Bauen der Web-Anwendung ##
+Die Webanwendung kann mit Hilfe des folgenden Befehls aus dem Client-Projekt heraus gebaut werden.
+
+```
+#!javascript
+
+ember build
+```
+Die erzeugte Anwendung wird dabei in Verzeichnis *public* des Server-Projekts kopiert.
