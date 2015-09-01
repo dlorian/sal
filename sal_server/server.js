@@ -61,7 +61,8 @@ var runExpressServer = function() {
 	app.set('port', serverPort);
 	app.set('ipAddress', serverIpAddress);
 	//app.use(morgan('dev')); // 'default', 'short', 'tiny', 'dev'
-	app.use(bodyParser());
+	app.use(bodyParser.urlencoded({extended: true}));
+	app.use(bodyParser.json());
 	//app.use(methodOverride());
 
 	// TODO: Make sure that request are using HTTPS
@@ -77,7 +78,10 @@ var runExpressServer = function() {
 			//httpOnly: true,
 			maxAge: 3600000 * 24 // 1h in ms * 24
 		},
-		secret: 'A0K!nrZro)ZZ4.Xp!ddAOx84tw!vn4&&rpQNvr4982!'
+		secret: 'A0K!nrZro)ZZ4.Xp!ddAOx84tw!vn4&&rpQNvr4982!',
+		proxy: true,
+    	resave: true,
+    	saveUninitialized: true
 	}));
 
 	// TODO: Implement the usage of CSRF-Token!!!!!
