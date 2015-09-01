@@ -8,7 +8,6 @@ var App;
 
 Ember.MODEL_FACTORY_INJECTIONS = true;
 
-
 DS.RESTAdapter.reopen({
     namespace: 'api' // Defines the path for backend services
     // ajaxError: function(jqXHR) {

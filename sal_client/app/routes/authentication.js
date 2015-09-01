@@ -16,7 +16,7 @@ export default Ember.Route.extend({
     },
 
     redirectToLogin: function(transition) {
-        Mealboard.Router.attemptedTransition = transition;
+        SalClient.Router.attemptedTransition = transition;
         this.transitionTo('/login');
     }
 });

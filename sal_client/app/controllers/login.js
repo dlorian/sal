@@ -98,9 +98,8 @@ export default Ember.Controller.extend({
             if(response.success === true) {
                 var user = me.get('store').createRecord('User', response.user);
                 me.set('loggedInUser', { isLoggedIn: true, user: user });
-                debugger
-                if (App.Router.attemptedTransition) {
-                    var attemptedTransition = App.Router.attemptedTransition;
+                if (SalClient.Router.attemptedTransition) {
+                    var attemptedTransition = SalClient.Router.attemptedTransition;
                     attemptedTransition.retry();
                     me.set('attemptedTransition', null);
                 }

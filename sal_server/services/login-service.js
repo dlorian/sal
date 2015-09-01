@@ -53,8 +53,8 @@ exports.loginUser = function(request, response, next, passport) {
         }
 
         if (!user) {
-            Logger.info('LoginService', 'loginUser', 'Authentication of user "'+user.username+'" failed.');
-            response.json({ success: false, msg: 'Benutzername oder Passwort ist falsch.' });
+            Logger.info('LoginService', 'loginUser', 'Authentication failed. User undefined', err);
+            response.json({ success: false, msg: 'Benutzername oder Passwort falsch.' });
         }
         else {
             // if authenticaiton was successfull, login in user
