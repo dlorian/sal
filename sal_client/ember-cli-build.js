@@ -129,5 +129,7 @@ module.exports = function(defaults) {
         production:  'bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js',
     });
 
+    app.import('bower_components/cryptojslib/rollups/sha3.js');
+
     return app.toTree();
 };
