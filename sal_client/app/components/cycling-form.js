@@ -18,8 +18,17 @@ export default Ember.Component.extend({
     $formContainer: null,
     $formFields: [],
 
-    successMessages: ['Erfolg'],
-    errorMessages: ['Fehler'],
+    successMessageList: [],
+
+    successMessages: function() {
+        return this.get('successMessageList');
+    }.property('successMessageList.@each'),
+
+    errorMessageList: [],
+
+    errorMessages: function() {
+        return this.get('errorMessageList');
+    }.property('errorMessageList.@each'),
 
     didInsertElement: function() {
         var me = this;
@@ -143,25 +152,25 @@ export default Ember.Component.extend({
     },
 
     save: function(model) {
-        debugger
-
-        var onSuccess = function() {
-
+        var me = this;
+        var onSuccess = function(response) {
+            me.get('successMessageList').pushObject('Erfolgreich gespeichert!');
         };
 
-        var onFail = function() {
+        var onFail = function(response) {
+            debugger
+            me.get('successMessages').push('Fehler beim Speichern!');
 
         }
 
-        var formIsValid = this.validateForm();
-        if(formIsValid) {
+        // if form ist valid, save model
+        if(this.validateForm()) {
             model.save().then(onSuccess, onFail);
         }
     },
 
     actions: {
         save: function(model) {
-            debugger
             this.save(model);
         }
     }

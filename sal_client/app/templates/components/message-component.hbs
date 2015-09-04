@@ -1,22 +1,24 @@
 <div id="message-component">
-    <div class="message-wrapper">
-        <p>Bla</p>
-        {{#each successMessages as |msg|}}
-        <div class="alert alert-success" role="alert">
-          <button type="button" class="close" {{action 'hide'}}>
-            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-          </button>
-          <p><strong>Eintrag wurde erfolgreich gespeichert!</strong></p>
-        </div>
-        {{/each}}
-        {{#each errorMessages as |msg|}}
-          <div class="alert alert-danger" role="alert">
-            <button type="button" class="close" {{action 'hide' msg}}>
-              <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-            </button>
+    {{#if successMessages}}
+        <p class="text-success">
+            <p><strong>Eintrag wurde erfolgreich gespeichert!</strong></p>
+            {{#each successMessages as |msg|}}
+                <button type="button" class="close" {{action 'hideSuccessMessage' msg}}>
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <p class="successMessage">{{msg}}</p>
+            {{/each}}
+        </p>
+    {{/if}}
+    {{#if errorMessages}}
+        <p class="text-danger">
             <p><strong>Eintrag konnte nicht gespeichert werden!</strong></p>
-            <p><span class="errorMessage"> {{msg}}</span></p>
-          </div>
-        {{/each}}
-    </div><!-- /.messageWrapper -->
+            {{#each errorMessages as |msg|}}
+                <button type="button" class="close" {{action 'hideErrorMessage' msg}}>
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <p class="errorMessage"> {{msg}}</p>
+            {{/each}}
+        </p>
+    {{/if}}
 </div><!-- /#messageview -->

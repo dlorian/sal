@@ -1,19 +1,47 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+    attributeBindings:['errorMessages', 'successMessages'],
+
+    elementId: 'message-component',
+
+    /**
+     * jQuery element of the message component
+     * @type {[type]}
+     */
+    $messageComponent: null,
+
     // View-Porperties
-    visible: true,     // true to show message view
-    success: false,     // true to show that save was successful
-    //errorMessages: [],  // errMsg to show if save was not successful
-    //successMessages: [],  // errMsg to show if save was not successful
+    visible: false,     // true to show message view
 
+    /**
+     * Stores all error messages whch needs to be displayed.
+     * @type {Array}
+     */
+    errorMessages: null,
+
+    /**
+     * Stores all success messages whch needs to be displayed.
+     * @type {Array}
+     */
+    successMessages: null,
+
+    /**
+     * Determines if the component needs to be visible
+     */
     isVisible: function() {
-        return this.get('visible');
-    }.property('errorMessages', 'visible'),
+        var errorMessages = this.get('errorMessages');
+        var successMessages = this.get('successMessages');
 
-    init: function() {
-        this._super();
-        debugger
+        var isVisible = (errorMessages   && errorMessages.length   > 0   ||
+                         successMessages && successMessages.length > 0);
+
+        this.set('visible', isVisible);
+    }.property('errorMessages.@each', 'successMessages.@each'),
+
+    didInsertElement: function() {
+        var messageComponent = Ember.$('#'+this.get('elementId'))
+        this.set('$messageComponent', messageComponent);
     },
 
     willDestroyElement: function() {
@@ -21,77 +49,27 @@ export default Ember.Component.extend({
         // Then we have to set the state of the controller to
         // default state
         this.setProperties({
-            visible: false,
-            success: false
+            visible: false
         });
 
+        this.get('successMessages').clear();
         this.get('errorMessages').clear();
-
-        // We also need to remove all listeners.
-        var controller = this.get('controller');
-        controller.off('successMessage', this, this.successMessageListener);
-        controller.off('failureMessage', this, this.failureMessageListener);
     },
 
-    successMessageListener: function() {
-        // true to show success message
-        this.showMessage(true);
+    hideErrorMessage: function(message) {
+        var errorMessages = this.get('errorMessages').removeObject(message);
     },
 
-    failureMessageListener: function(err) {
-        // false to show success message
-        this.showMessage(false, err.error);
-    },
-
-    showMessage: function(success, error) {
-        var me = this;
-
-        this.set('visible', true);
-        this.set('success', success);
-
-        var errorMessages = this.get('errorMessages');
-        if(error && error.message) {
-            errorMessages.pushObject({ message: error.message });
-        }
-        else if(error) {
-            errorMessages.pushObject({ message: error });
-        }
-
-        $('#message-view').fadeIn(400);
-
-        if(success) {
-            Ember.run.later(function() {
-                me.hideMessage();
-            }, 2000);
-        }
-    },
-
-    hideMessage: function(message) {
-        var me = this, errorMessages = this.get('errorMessages');
-
-        if(message) {
-            if(errorMessages.length === 1) {
-                $('#message-view').fadeOut(400, function(){
-                    errorMessages.removeObject(message);
-                    me.set('visible', false);
-                });
-            }
-            else {
-                errorMessages.removeObject(message);
-            }
-
-        }
-        else if(errorMessages.length === 0) {
-            $('#message-view').fadeOut(400, function(){
-                errorMessages.removeObject(message);
-                me.set('visible', false);
-            });
-        }
+    hideSuccessMessage: function(message) {
+        this.get('successMessages').removeObject(message)
     },
 
     actions: {
-        hide: function(message) {
-            this.hideMessage(message);
+        hideSuccessMessage: function(message) {
+            this.hideSuccessMessage(message);
+        },
+        hideErrorMessage: function(message) {
+            this.hideErrorMessage(message);
         }
     }
 });
