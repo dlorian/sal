@@ -1,12 +1,12 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('controller:entry', {
+moduleFor('transform:time', 'Unit | Transform | time', {
   // Specify the other units that are required for this test.
-  // needs: ['controller:foo']
+  // needs: ['serializer:foo']
 });
 
 // Replace this with your real tests.
 test('it exists', function(assert) {
-  var controller = this.subject();
-  assert.ok(controller);
+  var transform = this.subject();
+  assert.ok(transform);
 });

@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import AuthenticationRoute from './authentication';
 
-export default Ember.Route.extend({
+export default AuthenticationRoute.extend({
 });

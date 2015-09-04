@@ -1,6 +1,6 @@
 import { moduleForModel, test } from 'ember-qunit';
 
-moduleForModel('cycling-entry', 'Unit | Model | cycling entry', {
+moduleForModel('running', 'Unit | Model | running', {
   // Specify the other units that are required for this test.
   needs: []
 });

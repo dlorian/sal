@@ -6,15 +6,17 @@ var Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-    this.route('login');
+  this.route('login');
 
-    this.route('running', { path: '/running' }, function() {
+  this.route('running', { path: '/running' }, function() {
+    this.route('new');
+    this.route('list');
+  });
+
+  this.route('cycling', { path: '/cycling' }, function() {
       this.route('new');
-    });
-
-    this.route('cycling', { path: '/cycling' }, function() {
-        this.route('new');
-    });
+      this.route('list');
+  });
 });
 
 export default Router;

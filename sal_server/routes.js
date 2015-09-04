@@ -1,4 +1,5 @@
 var loginService = require('./services/login-service');
+var cyclingService = require('./services/cycling-service');
 
 module.exports = function(app, passport) {
     // Set up Login route
@@ -20,4 +21,13 @@ module.exports = function(app, passport) {
     app.route('/api/logout').post(function(req, res, next) {
         loginService.logoutUser(req, res, next, passport);
     });
+
+    app.route('/api/cyclings')
+        .get(cyclingService.getCyclings)
+        .post(cyclingService.addCycling)
+    ;
+
+    app.route('/api/cycling/:id')
+        .get(cyclingService.getCycling)
+    ;
 };
