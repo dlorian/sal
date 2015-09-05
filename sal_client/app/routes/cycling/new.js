@@ -5,10 +5,6 @@ export default AuthenticationRoute.extend({
         return this.get('store').createRecord('cycling');
     },
 
-    // setupController: function(controller, model) {
-    //     controller.set('model', model);
-    // },
-
     actions: {
         willTransition: function() {
             var model = this.get('controller').get('model');

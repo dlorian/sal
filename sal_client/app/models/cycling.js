@@ -97,6 +97,14 @@ export default DS.Model.extend({
             presence: true,
             pattern: '^(-)?[0-9]{1,2}((\\.|\\,)[0-9]{1,2})?$'
         },
+        condition: {
+            type: 'string',
+            presence: true
+        },
+        windDirection: {
+            type: 'string',
+            presence: true
+        },
         date: {
             type: 'date',
             presence: true

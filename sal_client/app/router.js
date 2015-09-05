@@ -14,6 +14,7 @@ Router.map(function() {
   });
 
   this.route('cycling', { path: '/cycling' }, function() {
+      this.route('details', { path: '/:id'});
       this.route('new');
       this.route('list');
   });

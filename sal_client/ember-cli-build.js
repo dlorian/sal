@@ -43,6 +43,10 @@ module.exports = function(defaults) {
         destDir: 'fonts'
     });
 
+    app.import('bower_components/datatables-plugins/i18n/German.lang', {
+        destDir: 'i18n'
+    });
+
     /*
      * Import CSS for theme
      */

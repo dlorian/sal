@@ -22,13 +22,13 @@ export default Ember.Component.extend({
 
     successMessages: function() {
         return this.get('successMessageList');
-    }.property('successMessageList.@each'),
+    }.property('successMessageList.[]'),
 
     errorMessageList: [],
 
     errorMessages: function() {
         return this.get('errorMessageList');
-    }.property('errorMessageList.@each'),
+    }.property('errorMessageList.[]'),
 
     didInsertElement: function() {
         var me = this;
@@ -60,7 +60,7 @@ export default Ember.Component.extend({
                 isValid = false;
             }
         });
-        return true;
+        return isValid;
     },
 
     /**
@@ -159,13 +159,16 @@ export default Ember.Component.extend({
 
         var onFail = function(response) {
             debugger
-            me.get('successMessages').push('Fehler beim Speichern!');
+            me.get('errorMessageList').push('Fehler beim Speichern!');
 
         }
 
         // if form ist valid, save model
         if(this.validateForm()) {
             model.save().then(onSuccess, onFail);
+        }
+        else {
+            me.get('errorMessageList').pushObject('Bitte die Eingaben überprüfen.');
         }
     },
 

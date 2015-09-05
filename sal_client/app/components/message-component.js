@@ -37,7 +37,7 @@ export default Ember.Component.extend({
                          successMessages && successMessages.length > 0);
 
         this.set('visible', isVisible);
-    }.property('errorMessages.@each', 'successMessages.@each'),
+    }.property('errorMessages.[]', 'successMessages.[]'),
 
     didInsertElement: function() {
         var messageComponent = Ember.$('#'+this.get('elementId'))
@@ -52,12 +52,20 @@ export default Ember.Component.extend({
             visible: false
         });
 
-        this.get('successMessages').clear();
-        this.get('errorMessages').clear();
+        var errorMessages = this.get('errorMessages');
+        var successMessages = this.get('successMessages');
+
+        if(errorMessages) {
+            errorMessages.clear();
+        }
+
+        if(successMessages) {
+            successMessages.clear();
+        }
     },
 
     hideErrorMessage: function(message) {
-        var errorMessages = this.get('errorMessages').removeObject(message);
+        this.get('errorMessages').removeObject(message);
     },
 
     hideSuccessMessage: function(message) {

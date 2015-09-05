@@ -3,16 +3,20 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
     didInsertElement: function() {
-        debugger
-        var cyclings = this.get('cyclings');
-        var data = [];
+        var dataItem = null, dataItems = [];
 
-        cyclings.forEach(function(item) {
-            data.push(item.get('data'));
+        this.get('cyclings').forEach(function(item) {
+            dataItem = item.get('data');
+            dataItem.id = item.get('id');
+            dataItems.push(dataItem);
         });
+
         Ember.$('#cycling-dataTables').DataTable({
+            language: {
+                url: "/i18n/German.lang"
+            },
             responsive: true,
-            data: data.toArray(),
+            data: dataItems.toArray(),
             columns: [
                 {
                     title: 'Datum',
@@ -26,19 +30,35 @@ export default Ember.Component.extend({
                     }
                 },
                 {
-                    title: 'Zeit gesamt',
-                    data: 'totalTime',
-                    defaultContent: ''
-                },
-                {
                     title: 'Strecke gesamt',
                     data: 'totalKm',
                     defaultContent: ''
                 },
                 {
-                    title: 'Beschreibung',
-                    data: 'description',
+                    title: 'Durchschnitt',
+                    data: 'avgSpeed',
                     defaultContent: ''
+                },
+                {
+                    title: 'Zeit gesamt',
+                    data: 'totalTime',
+                    defaultContent: ''
+                },
+                {
+                    title: 'Zeit 20km',
+                    data: 'time20',
+                    defaultContent: ''
+                },
+                {
+                    title: 'Zeit 30km',
+                    data: 'time30',
+                    defaultContent: ''
+                },
+                {
+                    orderable: false,
+                    render: function(data, type, full, meta) {
+                        return '<a href="#/cycling/'+full.id+'"><i class="fa fa-info"></i></a>';
+                    }
                 }
             ]
         });
