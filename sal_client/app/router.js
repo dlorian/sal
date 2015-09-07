@@ -9,6 +9,7 @@ Router.map(function() {
   this.route('login');
 
   this.route('running', { path: '/running' }, function() {
+    this.route('details', { path: '/:id'});
     this.route('new');
     this.route('list');
   });

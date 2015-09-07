@@ -1,6 +1,6 @@
-<form id="cycling-form" role="form" {{action 'save' model on="submit" }}>
+<form id="running-form" role="form" {{action 'save' model on="submit" }}>
     {{message-component successMessages=successMessages errorMessages=errorMessages}}
-    <div class="row cycling-toolbar" >
+    <div class="row running-toolbar" >
         <button type="button" class="btn btn-default" type="submit" disabled={{disabled}}>Speichern</button>
         {{#unless isNew}}
             <button type="button" class="btn btn-default" {{action 'edit'}} disabled={{editDisabled}}>Ändern</button>
@@ -21,24 +21,18 @@
     <div class="row">
         <fieldset>
             <div class="col-xs-12">
-                <h4><i class="fa fa-road"></i> Tour</h4>
+                <h4><i class="fa fa-clock-o"></i> Zeiten</h4>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4">
                 <div class="form-group">
-                    <label for="totalKm"> Strecke gesamt [km]:</label>
-                    {{input type="text"  value=model.totalKm class="form-control validate" name="totalKm" disabled=disabled}}
+                    <label for="startTime"> Zeit Start [hh:mm:ss]</label>
+                    {{input type="text"  value=model.startTime class="form-control validate" name="startTime" disabled=disabled}}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4">
                 <div class="form-group">
-                    <label for="avgSpeed">Geschwindigkeit Durchschn. [km/h]:</label>
-                    {{input type="text"  value=model.avgSpeed class="form-control validate" name="avgSpeed" disabled=disabled}}
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-4">
-                <div class="form-group">
-                    <label for="topSpeed">Geschwindigkeit Spitze [km/h]:</label>
-                    {{input type="text"  value=model.topSpeed class="form-control validate" name="topSpeed" disabled=disabled}}
+                    <label for="totalTime">Zeit gesamt [hh:mm:ss]:</label>
+                    {{input type="text"  value=model.totalTime class="form-control validate" name="totalTime" disabled=disabled}}
                 </div>
             </div>
         </fieldset>
@@ -46,26 +40,44 @@
     <!-- ./row -->
     <div class="row">
         <div class="col-xs-12">
-            <h4><i class="fa fa-clock-o"></i> Zeiten</h4>
+            <h4><i class="fa fa-heartbeat"></i> Herzfrequenz</h4>
         </div>
-        <div class="col-xs-12 col-sm-4 col-md-4">
-            <div class="form-group">
-                <label for="totalTime">Zeit gesamt [hh:mm:ss]:</label>
-                {{input type="text" value=model.totalTime class="form-control validate" name="totalTime" disabled=disabled}}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-4 col-md-4">
-            <div class="form-group">
-                <label for="time20"> Zeit 20km [hh:mm:ss]:</label>
-                {{input type="text"  value=model.time20 class="form-control validate" name="time20" disabled=disabled}}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-4 col-md-4">
-            <div class="form-group">
-                <label for="time30"> Zeit 30km [hh:mm:ss]:</label>
-                {{input type="text"  value=model.time30 class="form-control validate" name="time30" disabled=disabled}}
-            </div>
-        </div>
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="form-group">
+                        <label for="avgHeartRate">Durchschnitt. Herzfrequenz:</label>
+                        {{input type="text" value=model.avgHeartRate class="form-control validate" name="avgHeartRate" disabled=disabled}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="form-group">
+                        <label for="maxHeartRate"> Maximale Herzfrequenz:</label>
+                        {{input type="text"  value=model.maxHeartRate class="form-control validate" name="maxHeartRate" disabled=disabled}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="form-group">
+                        <label for="calories"> Kalorien [kCal]:</label>
+                        {{input type="text"  value=model.calories class="form-control validate" name="calories" disabled=disabled}}
+                    </div>
+                </div>
+            </div><!-- ./row -->
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="form-group">
+                        <label for="timeInHeartRateZone">In HF Zone [hh:mm:ss]:</label>
+                        {{input type="text" value=model.timeInHeartRateZone class="form-control validate" name="timeInHeartRateZone" disabled=disabled}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="form-group">
+                        <label for="percentInHeartRateZone"> In HF Zone [%]:</label>
+                        {{input type="text"  value=model.percentInHeartRateZone class="form-control validate" name="percentInHeartRateZone" disabled=disabled}}
+                    </div>
+                </div>
+            </div><!-- ./row -->
+        </div><!-- ./col-xs-12 -->
     </div><!-- ./row -->
     <div class="row">
         <div class="col-xs-12">

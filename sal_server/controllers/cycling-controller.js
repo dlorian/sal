@@ -68,24 +68,23 @@ exports.updateCycling = function(id, updatedCycling, user, callback) {
 
             cycling.save(function(err, savedCycling) {
                 if(err) {
-                    Logger.error('FoodController', 'updateFood', 'Error while saving food with id "'+id+'".', err);
+                    Logger.error('CyclingController', 'updateCycling', 'Error while saving running with id "'+id+'".', err);
                     return callback(err)
                 }
 
                 savedCycling.populate('createdBy modifiedBy', function(err, cycling) {
                     if(err) {
-                        Logger.error('FoodController', 'updateFood', 'Error while populating user references for food with id "'+id+'".', err);
+                        Logger.error('CyclingController', 'updateCycling', 'Error while populating user references for running with id "'+id+'".', err);
                         return callback(err);
                     }
 
-                    Logger.info('FoodController', 'updateFood', 'Food with id "'+id+'" was updated successfully.');
+                    Logger.info('CyclingController', 'updateCycling', 'Running with id "'+id+'" was updated successfully.');
                     return callback(null, savedCycling);
                 });
             });
         }
     });
-
-}
+};
 
 exports.getCyclings = function(queryParams, callback) {
     Logger.info('CyclingController', 'getCyclings', 'Invocation of getCyclings().');
@@ -106,7 +105,7 @@ exports.getCyclings = function(queryParams, callback) {
         Logger.info('CyclingController', 'getCyclings', 'Cycling list was queried successfully.');
         return callback(null, cyclings);
     });
-}
+};
 
 exports.getCycling = function(id, callback) {
     Logger.info('CyclingController', 'getCycling', 'Invocation of getCycling().');
@@ -129,4 +128,4 @@ exports.getCycling = function(id, callback) {
         Logger.info('CyclingController', 'getCycling', 'Cycling with id "'+id+'" does not exist.');
         return callback();
     });
-}
+};

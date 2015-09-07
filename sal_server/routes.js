@@ -1,5 +1,6 @@
 var loginService = require('./services/login-service');
 var cyclingService = require('./services/cycling-service');
+var runningService = require('./services/running-service');
 
 module.exports = function(app, passport) {
     // Set up Login route
@@ -30,5 +31,15 @@ module.exports = function(app, passport) {
     app.route('/api/cyclings/:id')
         .get(cyclingService.getCycling)
         .put(cyclingService.updateCycling)
+    ;
+
+    app.route('/api/runnings')
+        .get(runningService.getRunnings)
+        .post(runningService.addRunning)
+    ;
+
+    app.route('/api/runnings/:id')
+        .get(runningService.getRunning)
+        .put(runningService.updateRunning)
     ;
 };

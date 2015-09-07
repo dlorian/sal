@@ -44,7 +44,7 @@ exports.updateCycling = function(request, response) {
 }
 
 exports.getCycling = function(request, response) {
-    Logger.info('CyclingService', 'getCycling', 'Invocation of getFood().');
+    Logger.info('CyclingService', 'getCycling', 'Invocation of getCycling().');
     var id = request.params.id;
 
     cyclingController.getCycling(id, function(err, cycling) {

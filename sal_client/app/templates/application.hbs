@@ -11,7 +11,6 @@
             <a class="navbar-brand" href="index.html">SAL - Sport Activity Log</a>
         </div>
         <!-- /.navbar-header -->
-
         <ul class="nav navbar-top-links navbar-right">
             {{#if loggedInUser.isLoggedIn}}
                 <li class="dropdown">
@@ -38,48 +37,7 @@
         <!-- /.navbar-top-links -->
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
-                <ul class="nav in" id="side-menu">
-                    <li class="sidebar-search">
-                        <div class="input-group custom-search-form">
-                            <input type="text" class="form-control" placeholder="Search...">
-                            <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </span>
-                        </div>
-                        <!-- /input-group -->
-                    </li>
-                    <li>
-                        {{#link-to 'index'}}<i class="fa fa-home fa-fw"></i> Start{{/link-to}}
-                    </li>
-                    {{#unless loggedInUser.isLoggedIn}}
-                        <li>
-                            {{#link-to 'login'}}<i class="fa fa-sign-in fa-fw"></i> Anmelden{{/link-to}}
-                        </li>
-                    {{else}}
-                        <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Radfahren<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    {{#link-to 'cycling.list'}}<i class="fa fa-list fa-fw"></i> Einträge{{/link-to}}
-                                    {{#link-to 'cycling.new'}}<i class="fa fa-plus fa-fw"></i> Neuer Eintrag{{/link-to}}
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Laufen<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    {{#link-to 'running.list' }}<i class="fa fa-list fa-fw"></i> Einträge{{/link-to}}
-                                    {{#link-to 'running.new'}}<i class="fa fa-plus fa-fw"></i> Neuer Eintrag{{/link-to}}
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                    {{/unless}}
-                </ul>
+                {{side-menu loggedInUser=loggedInUser}}
             </div>
             <!-- /.sidebar-collapse -->
         </div>

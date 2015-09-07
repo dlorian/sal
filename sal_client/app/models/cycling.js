@@ -2,14 +2,6 @@ import DS from 'ember-data';
 import AbstractBase from './abstract-base';
 
 export default AbstractBase.extend({
-    // General
-    date: DS.attr('date', {
-        defaultValue: function() {
-            return new Date();
-        }
-    }),
-
-    description: DS.attr('string'),
 
     // Times
     time20: DS.attr('time'),

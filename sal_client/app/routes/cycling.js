@@ -1,5 +1,3 @@
 import AuthenticationRoute from './authentication';
 
-export default AuthenticationRoute.extend({
-
-});
+export default AuthenticationRoute.extend({});

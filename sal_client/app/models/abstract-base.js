@@ -6,5 +6,14 @@ export default DS.Model.extend({
     createdBy: DS.belongsTo('user'),
 
     modifiedAt: DS.attr('date'),
-    modifiedBy: DS.belongsTo('user')
+    modifiedBy: DS.belongsTo('user'),
+
+        // General
+    date: DS.attr('date', {
+        defaultValue: function() {
+            return new Date();
+        }
+    }),
+
+    description: DS.attr('string'),
 });
