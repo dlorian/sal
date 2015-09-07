@@ -43,13 +43,15 @@ export default ValidatorBase.extend({
             throw error;
         }
 
-        // Create a new Regular Expression for the given pattern string.
-        var regexp = new RegExp(pattern, 'g');
-        if(!regexp.test(fieldValue)) {
-            errMsg = 'Given value "'+ fieldValue + '" for field "' + field + '" does not match validation pattern.';
-            validationMsg = this.stringValidationMessage['pattern'];
-            error = this.createValidationError(errMsg, validationMsg, text);
-            throw error;
+        if(fieldValue && fieldValue.length > 0) {
+            // Create a new Regular Expression for the given pattern string.
+            var regexp = new RegExp(pattern, 'g');
+            if(!regexp.test(fieldValue)) {
+                errMsg = 'Given value "'+ fieldValue + '" for field "' + field + '" does not match validation pattern.';
+                validationMsg = this.stringValidationMessage['pattern'];
+                error = this.createValidationError(errMsg, validationMsg, text);
+                throw error;
+            }
         }
     }
 });

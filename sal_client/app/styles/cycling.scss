@@ -1,11 +1,14 @@
-#cycling-new {
+#cycling-new, #cycling-details {
+    padding: 0px 10px 0px 10px;
+
     .cycling-new-toolbar {
         position: relative;
 
         .btn {
-            right: 20px;
+            right: 10px;
             position: relative;
             float: right;
+            margin-right: 10px;
         }
     }
 }

@@ -1,7 +1,7 @@
 import AuthenticationRoute from '../authentication';
 
 export default AuthenticationRoute.extend({
-    model: function (params) {
+    model: function () {
         return this.get('store').createRecord('cycling');
     },
 

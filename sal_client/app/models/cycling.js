@@ -1,12 +1,14 @@
 import DS from 'ember-data';
+import AbstractBase from './abstract-base';
 
-export default DS.Model.extend({
+export default AbstractBase.extend({
     // General
     date: DS.attr('date', {
         defaultValue: function() {
             return new Date();
         }
     }),
+
     description: DS.attr('string'),
 
     // Times
@@ -31,7 +33,7 @@ export default DS.Model.extend({
     validation: {
         avgSpeed: {
             type: 'string',
-            presence: true,
+            presence: false,
             pattern: {
                 regexp: '^[0-9]{1,3}((\\.|\\,)[0-9]{1,2})?$',
                 text: '000.00 oder 000,00'
@@ -39,7 +41,7 @@ export default DS.Model.extend({
         },
         topSpeed: {
             type: 'string',
-            presence: true,
+            presence: false,
             pattern: {
                 regexp: '^[0-9]{1,3}((\\.|\\,)[0-9]{1,2})?$',
                 text: '000.00 oder 000,00'
@@ -47,7 +49,7 @@ export default DS.Model.extend({
         },
         totalKm: {
             type: 'string',
-            presence: true,
+            presence: false,
             pattern: {
                 regexp: '^[0-9]{1,3}((\\.|\\,)[0-9]{1,2})?$',
                 text: '000.00 oder 000,00'
@@ -55,7 +57,7 @@ export default DS.Model.extend({
         },
         time20: {
             type: 'string',
-            presence: true,
+            presence: false,
             pattern: {
                 regexp: '^([0-9]{2}\\:)?[0-9]{2}\\:[0-9]{2}$',
                 text: '00:00:00'
@@ -63,7 +65,7 @@ export default DS.Model.extend({
         },
         time30: {
             type: 'string',
-            presence: true,
+            presence: false,
             pattern: {
                 regexp: '^([0-9]{2}\\:)?[0-9]{2}\\:[0-9]{2}$',
                 text: '00:00:00'
@@ -71,7 +73,7 @@ export default DS.Model.extend({
         },
         totalTime: {
             type: 'string',
-            presence: true,
+            presence: false,
             pattern: {
                 regexp: '^([0-9]{2}\\:)?[0-9]{2}\\:[0-9]{2}$',
                 text: '00:00:00'
@@ -79,31 +81,31 @@ export default DS.Model.extend({
         },
         windSpeed: {
             type: 'number',
-            presence: true,
+            presence: false,
             min: 1
         },
         windStrength: {
             type: 'number',
-            presence: true,
+            presence: false,
             min: 1
         },
         windBlasts: {
             type: 'number',
-            presence: true,
+            presence: false,
             min: 1
         },
         temperature: {
             type: 'string',
-            presence: true,
+            presence: false,
             pattern: '^(-)?[0-9]{1,2}((\\.|\\,)[0-9]{1,2})?$'
         },
         condition: {
             type: 'string',
-            presence: true
+            presence: false
         },
         windDirection: {
             type: 'string',
-            presence: true
+            presence: false
         },
         date: {
             type: 'date',

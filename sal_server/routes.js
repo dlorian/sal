@@ -27,7 +27,8 @@ module.exports = function(app, passport) {
         .post(cyclingService.addCycling)
     ;
 
-    app.route('/api/cycling/:id')
+    app.route('/api/cyclings/:id')
         .get(cyclingService.getCycling)
+        .put(cyclingService.updateCycling)
     ;
 };

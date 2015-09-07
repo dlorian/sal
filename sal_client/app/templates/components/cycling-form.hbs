@@ -1,7 +1,10 @@
 <form id="cycling-form" role="form" {{action 'save' model on="submit" }}>
     {{message-component successMessages=successMessages errorMessages=errorMessages}}
     <div class="row cycling-new-toolbar" >
-        <button type="button" class="btn btn-default" type="submit">Speichern</button>
+        <button type="button" class="btn btn-default" type="submit" disabled={{disabled}}>Speichern</button>
+        {{#unless isNew}}
+            <button type="button" class="btn btn-default" {{action 'edit'}} disabled={{editDisabled}}>Ändern</button>
+        {{/unless}}
     </div>
     <div class="row">
         <fieldset>
@@ -10,7 +13,7 @@
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="form-group">
-                    {{bootstrap-datepicker value=model.date class="form-control validate" name="date" format="dd.mm.yyyy" weekStart=1}}
+                    {{bootstrap-datepicker value=model.date class="form-control validate" name="date" format="dd.mm.yyyy" weekStart=1 disabled=disabled}}
                 </div>
             </div>
         </fieldset>
@@ -23,19 +26,19 @@
             <div class="col-xs-12 col-sm-4 col-md-4">
                 <div class="form-group">
                     <label for="totalKm"> Strecke gesamt [km]:</label>
-                    {{input type="text"  value=model.totalKm class="form-control validate" name="totalKm"}}
+                    {{input type="text"  value=model.totalKm class="form-control validate" name="totalKm" disabled=disabled}}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4">
                 <div class="form-group">
                     <label for="avgSpeed">Geschwindigkeit Durchschn. [km/h]:</label>
-                    {{input type="text"  value=model.avgSpeed class="form-control validate" name="avgSpeed"}}
+                    {{input type="text"  value=model.avgSpeed class="form-control validate" name="avgSpeed" disabled=disabled}}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4">
                 <div class="form-group">
                     <label for="topSpeed">Geschwindigkeit Spitze [km/h]:</label>
-                    {{input type="text"  value=model.topSpeed class="form-control validate" name="topSpeed"}}
+                    {{input type="text"  value=model.topSpeed class="form-control validate" name="topSpeed" disabled=disabled}}
                 </div>
             </div>
         </fieldset>
@@ -48,23 +51,22 @@
         <div class="col-xs-12 col-sm-4 col-md-4">
             <div class="form-group">
                 <label for="totalTime">Zeit gesamt [hh:mm:ss]:</label>
-                {{input type="text" value=model.totalTime class="form-control validate" name="totalTime"}}
+                {{input type="text" value=model.totalTime class="form-control validate" name="totalTime" disabled=disabled}}
             </div>
         </div>
         <div class="col-xs-12 col-sm-4 col-md-4">
             <div class="form-group">
                 <label for="time20"> Zeit 20km [hh:mm:ss]:</label>
-                {{input type="text"  value=model.time20 class="form-control validate" name="time20"}}
+                {{input type="text"  value=model.time20 class="form-control validate" name="time20" disabled=disabled}}
             </div>
         </div>
         <div class="col-xs-12 col-sm-4 col-md-4">
             <div class="form-group">
                 <label for="time30"> Zeit 30km [hh:mm:ss]:</label>
-                {{input type="text"  value=model.time30 class="form-control validate" name="time30"}}
+                {{input type="text"  value=model.time30 class="form-control validate" name="time30" disabled=disabled}}
             </div>
         </div>
-    </div>
-    <!-- ./row -->
+    </div><!-- ./row -->
     <div class="row">
         <div class="col-xs-12">
             <h4><i class="fa fa-sun-o"></i> Wetter</h4>
@@ -74,55 +76,66 @@
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     <div class="form-group">
                         <label for="condition"> Bedingungen:</label>
-                        {{input type="text"  value=model.condition class="form-control validate" name="condition"}}
+                        {{input type="text"  value=model.condition class="form-control validate" name="condition" disabled=disabled}}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     <div class="form-group">
                         <label for="temperature">Temperatur:</label>
-                        {{input type="text" value=model.temperature class="form-control validate" name="temperature"}}
+                        {{input type="text" value=model.temperature class="form-control validate" name="temperature" disabled=disabled}}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     <div class="form-group">
                         <label for="windDirection"> Windrichtung:</label>
-                        {{input type="text"  value=model.windDirection class="form-control validate" name="windDirection"}}
+                        {{input type="text"  value=model.windDirection class="form-control validate" name="windDirection" disabled=disabled}}
                     </div>
                 </div>
-            </div>
-            <!-- ./row -->
+            </div><!-- ./row -->
             <div class="row">
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     <div class="form-group">
                         <label for="windStrength"> Windstärke:</label>
-                        {{input type="text"  value=model.windStrength class="form-control validate" name="windStrength"}}
+                        {{input type="text"  value=model.windStrength class="form-control validate" name="windStrength" disabled=disabled}}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     <div class="form-group">
                         <label for="windSpeed">Windgeschwindigkeit:</label>
-                        {{input type="text" value=model.windSpeed class="form-control validate" name="windSpeed"}}
+                        {{input type="text" value=model.windSpeed class="form-control validate" name="windSpeed" disabled=disabled}}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     <div class="form-group">
                         <label for="windBlasts">Böen:</label>
-                        {{input type="text" value=model.windBlasts class="form-control validate" name="windBlasts"}}
+                        {{input type="text" value=model.windBlasts class="form-control validate" name="windBlasts" disabled=disabled}}
                     </div>
                 </div>
-            </div>
-            <!-- ./row -->
+            </div><!-- ./row -->
             <div class="row">
                 <div class="col-xs-12">
                     <h4><i class="fa fa-pencil"></i> Beschreibung</h4>
                 </div>
                 <div class="col-xs-12 col-sm-8 col-md-8">
                     <div class="form-group">
-                        {{textarea value=model.description class="form-control validate" name="description"}}
+                        {{textarea value=model.description class="form-control validate" name="description" disabled=disabled}}
                     </div>
                 </div>
-            </div>
-            <!-- ./row -->
+            </div><!-- ./row -->
         </div>
-    </div>
+    </div><!-- ./row -->
+    <div class="row">
+        <div class="col-xs-12">
+            {{#if model.createdBy}}
+                <p class="cycling-createdBy">
+                    <span>Erstellt am </span>{{format-datetime model.createdAt}} <span> von </span> {{model.createdBy.username}}.
+                </p>
+            {{/if}}
+            {{#if model.modifiedBy}}
+                <p class="cycling-modifiedBy">
+                    <span>Zuletzt geändert am </span>{{format-datetime model.modifiedAt}} <span> von </span> {{model.modifiedBy.username}}.
+                </p>
+            {{/if}}
+        </div>
+    </div><!-- ./row -->
 </form>
