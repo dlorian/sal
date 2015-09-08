@@ -45,12 +45,10 @@ var runExpressServer = function() {
 		Logger.info('Server', 'runExpressServer', 'OPENSHIFT_NODEJS_PORT = ' + process.env.OPENSHIFT_NODEJS_PORT);
 	}
 
-	var serverPort      = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || appConfig.serverPort;
-	var serverIpAddress = process.env.OPENSHIFT_NODEJS_IP   || appConfig.serverIp;
+	var serverPort      = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || appConfig.server.port;
+	var serverIpAddress = process.env.OPENSHIFT_NODEJS_IP   || appConfig.server.ip;
 
 	if(!serverPort || !serverIpAddress) {
-		console.log(serverPort);
-		console.log(serverIpAddress);
 		Logger.error('Server port or ip is undefined. Unable to start application');
 		throw new Error('Server port or ip is undefined. Unable to start application');
 	}
@@ -100,11 +98,11 @@ var runExpressServer = function() {
 	}*/
 
 	// Load the config for passport
-	require('./config/passport')(passport);
+	require('./config/passport-config')(passport);
 
 	// Simple logger for requests
-	app.use(function(req, res, next) {
-		Logger.info('Server', 'Request', 'HTTP-Method: '+req.method+' URL: '+req.url);
+	app.use(function(request, response, next) {
+		Logger.info('Server', 'Request', 'HTTP-Method: '+request.method+' URL: '+request.url);
 		next();
 	});
 

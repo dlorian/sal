@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 // Import required database configuration
-var configDB = require('./config/database');
+var configDB = require('./config/database-config');
 
 // Import Logger
 var Logger = require('./logging').logger();

@@ -58,10 +58,7 @@ module.exports = function(defaults) {
     });
 
     // Timeline
-    app.import({
-        development: 'bower_components/startbootstrap-sb-admin-2/dist/css/timeline.css',
-        production:  'bower_components/startbootstrap-sb-admin-2/dist/css/timeline.css'
-    });
+    app.import('bower_components/startbootstrap-sb-admin-2/dist/css/timeline.css');
 
     // Font Awesome
     app.import({
@@ -76,19 +73,13 @@ module.exports = function(defaults) {
     });
 
     // Morris.js
-    app.import({
-        development: 'bower_components/morrisjs/morris.css',
-        production:  'bower_components/morrisjs/morris.css',
-    });
+    app.import('bower_components/morrisjs/morris.css');
 
     // Datatables.js
     app.import('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css');
 
     // Bootstrap Template
-    app.import({
-        development: 'bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css',
-        production:  'bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css'
-    });
+    app.import('bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css');
 
 
     /*
@@ -122,7 +113,7 @@ module.exports = function(defaults) {
     // Raphael.js
     app.import({
         development: 'bower_components/raphael/raphael.js',
-        production:  'bower_components/raphael/raphael.min.js',
+        production:  'bower_components/raphael/raphael-min.js',
     });
 
     // Datatables jQuery
@@ -138,10 +129,7 @@ module.exports = function(defaults) {
     });
 
     // Bootstrap Template
-    app.import({
-        development: 'bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js',
-        production:  'bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js',
-    });
+    app.import('bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js');
 
     // CrpytoJS Sha3 Lib
     app.import('bower_components/cryptojslib/rollups/sha3.js');
