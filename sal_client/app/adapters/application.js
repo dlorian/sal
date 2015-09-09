@@ -1,7 +1,7 @@
 import DS from 'ember-data';
 
 export default DS.RESTAdapter.extend({
-    namespace: 'api', // Defines the path for backend services
+    namespace: window.SAL_CLIENT.APP.APP_NAMESPACE, // Defines the path for backend services
     // ajaxError: function(jqXHR) {
     //     if(jqXHR.status === 401) {
     //         // Workaround to logout user
