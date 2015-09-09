@@ -2,6 +2,9 @@ var Cycling = require('../models/cycling').getModel();
 
 var Logger = require('../logging').logger();
 
+// Import Query Data Mixin for filtering and sorting queries
+var queryDataMixin = require('../mixins/query-data-mixin');
+
 exports.createCycling = function(cyclingToAdd, user, callback) {
     Logger.info('CyclingController', 'createCycling', 'Invocation of createCycling().');
 
@@ -33,9 +36,9 @@ exports.createCycling = function(cyclingToAdd, user, callback) {
 exports.updateCycling = function(id, updatedCycling, user, callback) {
     Logger.info('CyclingController', 'updateCycling', 'Invocation of updateCycling().');
 
-    var query = Cycling.findOne({id: id});
+    var query = Cycling.findOne({id:id});
 
-     // Execute query
+    // Execute query
     query.exec(function(err, cycling) {
         if(err) {
             Logger.error('CyclingController', 'updateCycling', 'Error while fetching cycling with id "'+id+'".', err);
@@ -83,6 +86,10 @@ exports.updateCycling = function(id, updatedCycling, user, callback) {
                 });
             });
         }
+        else {
+            Logger.info('CyclingController', 'updateCycling', 'No cycling found for id "'+id+'" . Nothing to update.');
+            return callback(null, null);
+        }
     });
 };
 
@@ -93,7 +100,7 @@ exports.getCyclings = function(queryParams, callback) {
     var query = Cycling.find().populate('createdBy modifiedBy');
 
     // Apply query parameters to the query
-    //query = queryDataMixin.applyQueryParams(query, queryParams);
+    query = queryDataMixin.applyQueryParams(query, queryParams);
 
     // Execute query
     query.exec(function(err, cyclings){

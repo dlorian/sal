@@ -2,6 +2,9 @@ var Running = require('../models/running').getModel();
 
 var Logger = require('../logging').logger();
 
+// Import Query Data Mixin for filtering and sorting queries
+var queryDataMixin = require('../mixins/query-data-mixin');
+
 exports.createRunning = function(runningToAdd, user, callback) {
     Logger.info('RunningController', 'createRunning', 'Invocation of createRunning().');
 
@@ -85,6 +88,10 @@ exports.updateRunning = function(id, updatedRunning, user, callback) {
                 });
             });
         }
+        else {
+            Logger.info('RunningController', 'updateRunning', 'No runnung found for id "'+id+'" . Nothing to update.');
+            return callback(null, null);
+        }
     });
 };
 
@@ -95,7 +102,7 @@ exports.getRunnings = function(queryParams, callback) {
     var query = Running.find().populate('createdBy modifiedBy');
 
     // Apply query parameters to the query
-    //query = queryDataMixin.applyQueryParams(query, queryParams);
+    query = queryDataMixin.applyQueryParams(query, queryParams);
 
     // Execute query
     query.exec(function(err, runnings){
