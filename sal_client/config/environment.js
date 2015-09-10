@@ -1,24 +1,25 @@
 /* jshint node: true */
 
 module.exports = function(environment) {
-  var ENV = {
-    modulePrefix: 'sal-client',
-    environment: environment,
-    baseURL: '/',
-    locationType: 'hash',
-    //locationType: 'auto',
-    EmberENV: {
-      FEATURES: {
-        // Here you can enable experimental features on an ember canary build
-        // e.g. 'with-controller': true
-      }
-    },
+    var ENV = {
+        modulePrefix: 'sal-client',
+        environment: environment,
+        baseURL: '/',
+        locationType: 'hash',
+        //namespace: "api",
+        //locationType: 'auto',
+        EmberENV: {
+            FEATURES: {
+                // Here you can enable experimental features on an ember canary build
+                // e.g. 'with-controller': true
+            }
+        },
 
-    APP: {
-      // Here you can pass flags/options to your application instance
-      // when it is created
-    }
-  };
+        APP: {
+            // Here you can pass flags/options to your application instance
+            // when it is created
+        }
+    };
 
     if(environment === 'development') {
         // ENV.APP.LOG_RESOLVER = true;
@@ -26,8 +27,6 @@ module.exports = function(environment) {
         ENV.APP.LOG_TRANSITIONS = true;
         // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
         //  ENV.APP.LOG_VIEW_LOOKUPS = true;
-
-        ENV.APP.APP_NAMESPACE = "api"
     }
 
     if(environment === 'test') {
@@ -43,7 +42,7 @@ module.exports = function(environment) {
     }
 
     if(environment === 'production') {
-        ENV.APP.APP_NAMESPACE = "sal/api"
+
     }
 
     return ENV;

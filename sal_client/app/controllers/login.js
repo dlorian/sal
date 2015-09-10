@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Application from '../custom/application';
 
 export default Ember.Controller.extend({
 
@@ -26,6 +27,11 @@ export default Ember.Controller.extend({
      * @type {String}
      */
     errorMessage: null,
+
+    appNamespace: Ember.computed(function() {
+        var app = new Application();
+        return app.getNamespace();
+    }),
 
     /**
      * Check if the user is still logged via a session cookie.
@@ -65,7 +71,7 @@ export default Ember.Controller.extend({
     },
 
     getLogin: function(success, failure) {
-        Ember.$.get('/api/login').done(function(response) {
+        Ember.$.get('api/login').done(function(response) {
             if (success && typeof(success) === "function") {
                 success(response);
             }
@@ -94,7 +100,7 @@ export default Ember.Controller.extend({
         };
 
         // Do login request
-        Ember.$.post('/api/login', data).done(function(response) {
+        Ember.$.post('api/login', data).done(function(response) {
             if(response.success === true) {
                 var user = me.get('store').createRecord('User', response.user);
                 me.set('loggedInUser', { isLoggedIn: true, user: user });
@@ -130,7 +136,7 @@ export default Ember.Controller.extend({
     doLogout: function() {
         var me = this;
 
-        Ember.$.post('/api/logout').done(function() {
+        Ember.$.post('api/logout').done(function() {
             me.transitionToRoute('login');
             me.destroyLoggedInUser();
 

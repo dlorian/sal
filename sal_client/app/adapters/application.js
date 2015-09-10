@@ -1,7 +1,12 @@
-import DS from 'ember-data';
+import Ember from 'ember';
+import Application from '../custom/application';
 
 export default DS.RESTAdapter.extend({
-    namespace: window.SAL_CLIENT.APP.APP_NAMESPACE, // Defines the path for backend services
+    namespace: Ember.computed(function() {
+        var app = new Application();
+        return app.getNamespace();
+    }),
+    //namespace: window.SAL_CLIENT.APP.namespace, // Defines the path for backend services
     // ajaxError: function(jqXHR) {
     //     if(jqXHR.status === 401) {
     //         // Workaround to logout user
@@ -13,7 +18,7 @@ export default DS.RESTAdapter.extend({
     //         Mealboard.Router.router.transitionTo('login');
     //     }
     // }
-    shouldReloadAll: function( store, snapshot ) {
+    shouldReloadAll: function() {
         return true;
     }
 });

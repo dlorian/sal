@@ -60,6 +60,7 @@ exports.updateCycling = function(id, updatedCycling, user, callback) {
             cycling.topSpeed = updatedCycling.topSpeed;
 
             cycling.condition = updatedCycling.condition;
+            cycling.temperature = updatedCycling.temperature;
             cycling.windDirection = updatedCycling.windDirection;
             cycling.windSpeed = updatedCycling.windSpeed;
             cycling.windStrength = updatedCycling.windStrength;
