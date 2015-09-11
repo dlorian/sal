@@ -62,6 +62,7 @@ exports.updateRunning = function(id, updatedRunning, user, callback) {
             running.percentInHeartRateZone = updatedRunning.percentInHeartRateZone;
 
             running.condition = updatedRunning.condition;
+            running.temperature = updatedRunning.temperature;
             running.windDirection = updatedRunning.windDirection;
             running.windSpeed = updatedRunning.windSpeed;
             running.windStrength = updatedRunning.windStrength;

@@ -12,6 +12,13 @@ FILE=$BUILD_FILE_NAME.$FILE_EXT
 
 echo ""
 echo "###"
+echo "# Stopping service \"sal\""
+svc -d ~/service/sal
+echo "###"
+echo ""
+
+echo ""
+echo "###"
 echo "# Extrating archive \"$FILE\" of application"
 tar -xzf "$FILE"
 echo "# Archive extracted."
@@ -66,5 +73,12 @@ else
     echo "Could not change to directory $SAL_CLIENT_DIR. Unable to run \"npm install\"."
     exit 1
 fi
+echo "###"
+echo ""
+
+echo ""
+echo "###"
+echo "# Starting service \"sal\""
+svc -u ~/service/sal
 echo "###"
 echo ""
