@@ -1,0 +1,28 @@
+<hmtl>
+<head>
+    <style></style>
+</head>
+<body>
+    <div id="container">
+        <div id="heading">
+            <h3 id="title">Neuer Cycling Eintrag hinzugefügt</h3>
+        </div>
+        <div id="content">
+            <div><span>Datum: </span> {{date}}</div>
+            <div>
+                <p><span>Gefahrene Strecke: </span> {{totalKm}}</p>
+                <p><span>Geschwindigkeit Durchschn.: </span> {{avgSpeed}}</p>
+                <p><span>Geschwindigkeit Spitze: </span> {{topSpeed}}</p>
+            </div>
+            <div>
+                <p><span>Gesamtzeit: </span> {{totalTime}}</p>
+                <p><span>Zeit 20km </span> {{time20}}</p>
+                <p><span>Zeit 30km </span> {{time30}}</p>
+            </div>
+        </div>
+        <div id="footer">
+            <a href="http://doraus.com.de/sal/cyclings/{{id}}">Details</a>
+        </div>
+    </div>
+</body>
+</hmtl>

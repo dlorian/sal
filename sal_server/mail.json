@@ -1,0 +1,12 @@
+{
+    "apiUser": "fdorau350",
+    "apiKey":  "UntjP%ayaVw36;s2Etre.&7s.9",
+    "mail": {
+        "from": "sal@sendgrid.me"
+    },
+    "exceptionMail": {
+        "to": "f.dorau@ymail.com",
+        "from": "exception-at-sal@sendgrid.me",
+        "subject": "Exception @ SAL"
+    }
+}
