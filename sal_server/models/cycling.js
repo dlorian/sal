@@ -4,8 +4,8 @@ var mongoose = require('mongoose'),
 
 var AbstractBaseSchema = require('./abstract-base').getSchema();
 
-var timeMatch   = [ /^([0-9]{2}\:)?[0-9]{2}\:[0-9]{2}$/ , "Time does not have the correct format [hh:mm:ss]. ({VALUE})"],
-    numberMatch = [ /^[0-9]{1,3}((\.|\,)[0-9]{1,2})?$/  , "Value does not have the correct format. ({VALUE})"];
+var timeMatch   = [ /^([0-9]{1,2}\:)?[0-9]{2}\:[0-9]{2}$/ , "Time does not have the correct format [hh:mm:ss]. ({PATH} : {VALUE})"],
+    numberMatch = [ /^[0-9]{1,3}((\.|\,)[0-9]{1,2})?$/  , "Value does not have the correct format. ({PATH} : {VALUE})"];
 
 var dateValidator = function(value) {
     // Verify that the given date of a tour is not in the future
@@ -25,7 +25,7 @@ var cyclingSchema = AbstractBaseSchema.extend({
     temperature:  { type: String, match: numberMatch },
     windSpeed:    { type: Number, min: 1},
     windStrength: { type: Number, min: 1},
-    windBlasts:   { type: Number, min: 1},
+    windBlasts:   { type: Number, min: 0},
 
     // Track
     totalKm:  { type: String, match: numberMatch },
