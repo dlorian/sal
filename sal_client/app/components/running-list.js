@@ -1,56 +1,51 @@
 import Ember from 'ember';
+import BaseList from './base-list';
 
-export default Ember.Component.extend({
-        didInsertElement: function() {
-        var dataItem = null, dataItems = [];
+export default BaseList.extend({
 
-        this.get('runnings').forEach(function(item) {
-            dataItem = item.get('data');
-            dataItem.id = item.get('id');
-            dataItems.push(dataItem);
-        });
+    didInsertElement: function() {
+        var $table = Ember.$('#running-dataTables');
+        this.renderTable($table, this.get('runnings'), this.getColumnsConfig());
+    },
 
-        Ember.$('#running-dataTables').DataTable({
-            language: {
-                url: "/i18n/German.lang"
-            },
-            responsive: true,
-            data: dataItems.toArray(),
-            columns: [
-                {
-                    title: 'Datum',
-                    data: 'date',
-                    defaultContent: '',
-                    render: function (data, type, full, meta ) {
-                        if(data && moment(data).isValid()) {
-                            return moment(data).format('DD.MM.YYYY');
-                        }
-                        return '';
+    updateRunnungs: function() {
+        this.updateTable(this.get('runnings'));
+    }.observes('runnings'),
+
+    getColumnsConfig: function() {
+        return [
+            {
+                title: 'Datum',
+                data: 'date',
+                defaultContent: '',
+                render: function (data, type, full, meta ) {
+                    if(data && moment(data).isValid()) {
+                        return moment(data).format('DD.MM.YYYY');
                     }
-                },
-                {
-                    title: 'Zeit gesamt',
-                    data: 'totalTime',
-                    defaultContent: ''
-                },
-                {
-                    title: 'Puls Durchschn.',
-                    data: 'avgHeartRate',
-                    defaultContent: ''
-                },
-                {
-                    title: 'Puls Max.',
-                    data: 'maxHeartRate',
-                    defaultContent: ''
-                },
-                {
-                    orderable: false,
-                    render: function(data, type, full, meta) {
-                        return '<a href="#/running/'+full.id+'"><i class="fa fa-info"></i></a>';
-                    }
+                    return '';
                 }
-            ]
-        });
+            },
+            {
+                title: 'Zeit gesamt',
+                data: 'totalTime',
+                defaultContent: ''
+            },
+            {
+                title: 'Puls Durchschn.',
+                data: 'avgHeartRate',
+                defaultContent: ''
+            },
+            {
+                title: 'Puls Max.',
+                data: 'maxHeartRate',
+                defaultContent: ''
+            },
+            {
+                orderable: false,
+                render: function(data, type, full, meta) {
+                    return '<a href="#/running/'+full.id+'"><i class="fa fa-info"></i></a>';
+                }
+            }
+        ];
     }
-
 });

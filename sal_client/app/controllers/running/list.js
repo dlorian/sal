@@ -3,23 +3,15 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
     queryParams: ['from', 'to'],
 
-    from: null,
-    to: null,
+    from: moment().subtract(1, 'month').format('YYYY-MM-DD'),
+    to: moment().format('YYYY-MM-DD'),
 
     dateFrom: function() {
-        var from = this.get('from');
-        if(from && moment(from).isValid()) {
-            return moment(from).toDate();
-        }
-        return null;
+        return moment(this.get('from')).toDate();
     }.property('from'),
 
     dateTo: function() {
-        var to = this.get('to');
-        if(to && moment(to).isValid()) {
-            return moment(to).toDate();
-        }
-        return null;
+        return moment(this.get('to')).toDate();
     }.property('to'),
 
     actions: {
