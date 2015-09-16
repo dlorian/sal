@@ -1,4 +1,41 @@
+var moment = require('moment');
+
 var Logger = require('../logging').logger();
+
+var applyDateFilterImpl = function(query, field, from, to) {
+    Logger.info('QueryDataMixin', 'applyDateFilterImpl', 'Query will be filtered by field "'+field+'".');
+    var filterApplied = false;
+
+    query.where(field);
+
+    if(from && moment(from).isValid()) {
+        var fromDate = moment(from).toDate();
+        Logger.info('QueryDataMixin', 'applyDateFilterImpl', 'Apply "from" date filter "'+fromDate.toUTCString()+'" to query.');
+        query.gt(fromDate);
+        filterApplied = true;
+    }
+
+    if(to && moment(to).isValid()) {
+        var toDate = moment(to).toDate();
+        Logger.info('QueryDataMixin', 'applyDateFilterImpl', 'Apply "to" date filter "'+toDate.toUTCString()+'" to query.');
+        query.lt(toDate);
+        filterApplied = true;
+    }
+
+    return filterApplied ? query : null;
+}
+
+var applyDateFilter = function(query, filter) {
+    Logger.info('QueryDataMixin', 'applyDateFilter', 'Invocation of applyDateFilter().');
+    var field = filter.field, from = filter.from, to = filter.to;
+    if(field && typeof field === 'string') {
+        Logger.info('QueryDataMixin', 'applyDateFilter', 'Apply date filter for field "'+field+'".');
+        var tmpQuery = applyDateFilterImpl(query, field, from, to);
+
+        query = tmpQuery ? tmpQuery : query;
+    }
+    return query;
+};
 
 var applyFilters = function(query, filters) {
     Logger.info('QueryDataMixin', 'applyFilters', 'Invocation of applyFilters().');
@@ -68,6 +105,10 @@ exports.applyQueryParams = function(query, queryParams) {
 
     if(queryParams.limit !== undefined) { // 0 should be a possible limit param
         query = applyLimit(query, queryParams.limit);
+    }
+
+    if(queryParams.dateFilter !== undefined) {
+        query = applyDateFilter(query, queryParams.dateFilter);
     }
 
     return query;

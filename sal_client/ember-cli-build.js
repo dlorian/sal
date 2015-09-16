@@ -128,6 +128,8 @@ module.exports = function(defaults) {
         production:  'bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js'
     });
 
+    app.import('bower_components/datatables-plugins/sorting/datetime-moment.js');
+
     // Bootstrap Template
     app.import('bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js');
 

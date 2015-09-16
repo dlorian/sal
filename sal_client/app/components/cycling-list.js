@@ -1,28 +1,57 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+    /**
+     * Stores an instance of the created datatable
+     * @type {Object}
+     */
+    dataTable: null,
 
     didInsertElement: function() {
+        this.renderTable(this.getTableData(this.get('cyclings')));
+    },
+
+    updateList: function() {
+        this.updateTable(this.getTableData(this.get('cyclings')));
+    }.observes('cyclings'),
+
+    updateTable: function(data) {
+        var table = this.get('dataTable');
+        // Clear existing data
+        table.clear();
+
+        // Add new data
+        table.rows().invalidate();
+        table.rows.add(data).draw();
+    },
+
+    getTableData: function(cyclings) {
         var dataItem = null, dataItems = [];
 
-        this.get('cyclings').forEach(function(item) {
+        cyclings.forEach(function(item) {
             dataItem = item.get('data');
             dataItem.id = item.get('id');
             dataItems.push(dataItem);
         });
 
-        Ember.$('#cycling-dataTables').DataTable({
-            language: {
-                url: "/i18n/German.lang"
-            },
+        return dataItems.toArray();
+    },
+
+    renderTable: function(data) {
+        Ember.$.fn.dataTable.moment('DD.MM.YYYY');
+        var table = Ember.$('#cycling-dataTables').DataTable({
+            // language: {
+            //     url: "/i18n/German.lang"
+            // },
             responsive: true,
-            data: dataItems.toArray(),
+            retrieve: true,
+            data: data,
             columns: [
                 {
                     title: 'Datum',
                     data: 'date',
                     defaultContent: '',
-                    render: function (data, type, full, meta ) {
+                    render: function (data) {
                         if(data && moment(data).isValid()) {
                             return moment(data).format('DD.MM.YYYY');
                         }
@@ -56,11 +85,13 @@ export default Ember.Component.extend({
                 },
                 {
                     orderable: false,
-                    render: function(data, type, full, meta) {
+                    render: function(data, type, full) {
                         return '<a href="#/cycling/'+full.id+'"><i class="fa fa-info"></i></a>';
                     }
                 }
             ]
         });
+
+        this.set('dataTable', table);
     }
 });
