@@ -1,6 +1,7 @@
 var loginService = require('./services/login-service');
 var cyclingService = require('./services/cycling-service');
 var runningService = require('./services/running-service');
+var statisticService = require('./services/statistic-service');
 
 module.exports = function(app, passport) {
     // Set up Login route
@@ -41,5 +42,9 @@ module.exports = function(app, passport) {
     app.route('/api/runnings/:id')
         .get(runningService.getRunning)
         .put(runningService.updateRunning)
+    ;
+
+    app.route('/api/statistic')
+        .get(statisticService.getStatistics)
     ;
 };

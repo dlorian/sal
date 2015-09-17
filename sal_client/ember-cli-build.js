@@ -72,9 +72,6 @@ module.exports = function(defaults) {
         production:  'bower_components/metisMenu/dist/metisMenu.min.css',
     });
 
-    // Morris.js
-    app.import('bower_components/morrisjs/morris.css');
-
     // Datatables.js
     app.import('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css');
 
@@ -104,16 +101,15 @@ module.exports = function(defaults) {
         production:  'bower_components/metisMenu/dist/metisMenu.min.js',
     });
 
-    // Morris.js
-    app.import({
-        development: 'bower_components/morrisjs/morris.js',
-        production:  'bower_components/morrisjs/morris.min.js',
-    });
+    // Chart.j
+    // app.import({
+    //     development: 'bower_components/Chart.js/Chart.js',
+    //     production:  'bower_components/Chart.js/Chart.min.js',
+    // });
 
-    // Raphael.js
     app.import({
-        development: 'bower_components/raphael/raphael.js',
-        production:  'bower_components/raphael/raphael-min.js',
+        development: 'bower_components/highcharts/highcharts.src.js',
+        production:  'bower_components/highcharts/highcharts.js',
     });
 
     // Datatables jQuery
@@ -138,6 +134,13 @@ module.exports = function(defaults) {
 
     // Language of Datepicker
     app.import('bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.de.min.js');
+
+    // Decimal.js
+    app.import({
+        development: 'bower_components/decimal.js/decimal.js',
+        production:  'bower_components/decimal.js/decimal.min.js',
+    });
+
 
     return app.toTree();
 };

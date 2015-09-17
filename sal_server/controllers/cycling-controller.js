@@ -31,7 +31,7 @@ exports.createCycling = function(cyclingToAdd, user, callback) {
             Logger.info('CyclingController', 'createCycling', 'Cycling was created successfully.');
 
             Logger.info('CyclingController', 'createCycling', 'Sending confirmation mail.');
-            sendConfirmationMail(savedCycling);
+            //sendConfirmationMail(savedCycling);
 
             return callback(null, savedCycling);
         });
@@ -57,8 +57,38 @@ exports.updateCycling = function(id, updatedCycling, user, callback) {
     }
 };
 
+var injectDateFilterForField = function(queryParams, field) {
+    var dateFilter = { field: field };
+
+    if(queryParams.from) {
+        dateFilter.from = queryParams.from;
+    }
+
+    if(queryParams.to) {
+        dateFilter.to = queryParams.to;
+    }
+
+    queryParams.dateFilter = dateFilter;
+    delete queryParams.from;
+    delete queryParams.to
+
+    // Prepare default sorter for the date filter
+    var dateSorter = { field: field, dir: 'asc' };
+    if(queryParams.sorters) {
+        queryParams.sorters.push(dateSorter);
+    }
+    else {
+        queryParams.sorters = [dateSorter];
+    }
+
+    return queryParams;
+};
+
 exports.getCyclings = function(queryParams, callback) {
     Logger.info('CyclingController', 'getCyclings', 'Invocation of getCyclings().');
+
+    queryParams = injectDateFilterForField(queryParams, 'date');
+
     modelController.getAll(Cycling, queryParams, function(err, models) {
         if(err) {
             Logger.error('CyclingController', 'getCyclings', 'Error while fetching cycling list.', err);
