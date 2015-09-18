@@ -3,86 +3,183 @@ var Cycling = require('../models/cycling').getModel();
 // Import Logger
 var Logger = require('../logging').logger();
 
-var _findBestTotalKms = function(callback) {
-    Logger.info('StatisticController', '_findBestTotalKms', 'Invocation of _findBestTotalKms().');
-    var query = Cycling.find().limit(3).sort('-totalKm').select('id totalKm date');
-
+var _fireQuery = function(query, callback) {
+    Logger.info('StatisticController', '_fireQuery', 'Invocation of _fireQuery().');
     query.exec(function(err, data) {
         if(err) {
-            Logger.error('StatisticController', '_findBestTotalKms', 'Error while finding best total kilometers.');
+            Logger.error('StatisticController', '_fireQuery', 'Error while firing query.');
             return callback(err);
         }
         return callback(null, data);
     });
+};
+
+var _findBestTotalKms = function(callback) {
+    Logger.info('StatisticController', '_findBestTotalKms', 'Invocation of _findBestTotalKms().');
+    var query = Cycling.find().limit(3).sort('-totalKm').select('id totalKm date');
+    _fireQuery(query, callback);
 };
 
 var _findBestAvgSpeeds = function(callback) {
     Logger.info('StatisticController', '_findBestAvgSpeeds', 'Invocation of _findBestAvgSpeeds().');
     var query = Cycling.find().limit(3).sort('-avgSpeed').select('id avgSpeed date');
-
-    query.exec(function(err, data) {
-        if(err) {
-            Logger.error('StatisticController', '_findBestAvgSpeeds', 'Error while finding best average speeds.');
-            return callback(err);
-        }
-        return callback(null, data);
-    });
+    _fireQuery(query, callback);
 };
 
 var _findBestTopSpeeds = function(callback) {
     Logger.info('StatisticController', '_findBestTopSpeeds', 'Invocation of _findBestTopSpeeds().');
     var query = Cycling.find().limit(3).sort('-topSpeed').select('id topSpeed date');
-
-    query.exec(function(err, data) {
-        if(err) {
-            Logger.error('StatisticController', '_findBestTopSpeeds', 'Error while findung best top speeds.');
-            return callback(err);
-        }
-        return callback(null, data);
-    });
+    _fireQuery(query, callback);
 };
+
+var _countCyclings = function(callback) {
+    Logger.info('StatisticController', '_countCyclings', 'Invocation of _countCyclings().');
+    var query = Cycling.count();
+    _fireQuery(query, callback);
+};
+
+var _findLongestTimes = function(callback) {
+    Logger.info('StatisticController', '_findLongestTimes', 'Invocation of _findLongestTimes().');
+    var query = Cycling.find().limit(3).sort('-totalTime -totalKm').select('id totalTime totalKm date');
+    _fireQuery(query, callback);
+};
+
+var _overallTotalKm = function(callback) {
+    Cycling.aggregate(
+        [
+            {
+                $group: {
+                    _id: null,
+                    overallTotalKm: { $sum: "$totalKm"  }
+                }
+            }
+        ],
+        function (err, data) {
+            if(err) {
+                Logger.error('StatisticController', '_overallTotalKm', 'Error while aggregating total kilometers.');
+                return callback(err);
+            }
+            console.log(data);
+            return callback(null, data[0].overallTotalKm);
+        }
+    );
+};
+
+var _yearStatistics = function(callback) {
+    Cycling.aggregate(
+        [
+            {
+                $group: {
+                    _id: { year: { $year: "$date" } },
+                    totalKmOfYear: { $sum: "$totalKm" },
+                    avgTotalKmOfYear: { $avg: "$totalKm" },
+                    avgAvgSpeedOfYear: {$avg: "$avgSpeed"},
+                    avgTopSpeedOfYear: {$avg: "$topSpeed"},
+                    count: {$sum: 1}
+                }
+            }
+        ],
+        function (err, data) {
+            if(err) {
+                Logger.error('StatisticController', '_yearStatistics', 'Error while aggregating year statistics.');
+                return callback(err);
+            }
+            return callback(null, data);
+        }
+    );
+}
 
 exports.getStatistics = function(callback) {
     Logger.info('StatisticController', 'getStatistics', 'Invocation of getStatistics().');
     var cbCounter = 0;
 
     var statistic = {
-        totalKms: null,
-        avgSpeeds: null,
-        topSpeeds: null
+        totalCount: null,
+        longestTimes: null,
+        overallTotalKm: null,
+        bestTotalKms: null,
+        bestAvgSpeeds: null,
+        bestTopSpeeds: null,
+        yearStatistics: null
     };
 
     var invokeCallback = function(err) {
         if(err) {
-            Logger.error('StatisticController', 'invokeCallback', 'Error while finding statistics occured.');
+            Logger.error('StatisticController', 'invokeCallback', 'Error while finding statistics occured.', err);
         }
         cbCounter++;
-        if(cbCounter === 3) {
+        if(cbCounter === 7) {
             callback(null, statistic);
         }
     };
 
-    _findBestTopSpeeds(function(err, data) {
+    _overallTotalKm(function(err, data) {
         if(err) {
+            Logger.error('StatisticController', '_overallTotalKm', 'Error while aggregating cyclings.');
             return invokeCallback(err);
         }
-        statistic.topSpeeds = data;
+        statistic.overallTotalKm = data;
+        invokeCallback();
+    });
+
+    _countCyclings(function(err, data) {
+        if(err) {
+            Logger.error('StatisticController', '_countCyclings', 'Error while counting cyclings.');
+            return invokeCallback(err);
+        }
+        statistic.totalCount = data;
+        invokeCallback();
+    });
+
+    _findLongestTimes(function(err, data) {
+        if(err) {
+            Logger.error('StatisticController', '_countCyclings', 'Error while counting cyclings.');
+            return invokeCallback(err);
+        }
+        statistic.longestTimes = data;
+        invokeCallback();
+    });
+
+    _findBestTopSpeeds(function(err, data) {
+        if(err) {
+            Logger.error('StatisticController', '_findBestAvgSpeeds', 'Error while finding best top speeds.');
+            return invokeCallback(err);
+        }
+        statistic.bestTopSpeeds = data;
         invokeCallback();
     });
 
     _findBestAvgSpeeds(function(err, data) {
         if(err) {
+            Logger.error('StatisticController', '_findBestAvgSpeeds', 'Error while finding best average speeds.');
             return invokeCallback(err);
         }
-        statistic.avgSpeeds = data;
+        statistic.bestAvgSpeeds = data;
         invokeCallback();
     });
 
     _findBestTotalKms(function(err, data) {
         if(err) {
+            Logger.error('StatisticController', '_findBestAvgSpeeds', 'Error while finding best total kilometers.');
             return invokeCallback(err);
         }
-        statistic.totalKms = data;
+        statistic.bestTotalKms = data;
+        invokeCallback();
+    });
+
+    _yearStatistics(function(err, data) {
+        if(err) {
+            Logger.error('StatisticController', '_overallTotalKm', 'Error while aggregating cyclings.');
+            return invokeCallback(err);
+        }
+
+        // Remove group id of result
+        data.forEach(function(item, index, arr) {
+            item.year = item._id.year;
+            delete item._id;
+        });
+
+        statistic.yearStatistics = data;
         invokeCallback();
     });
 };

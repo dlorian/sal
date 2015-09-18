@@ -1,15 +1,27 @@
-<div id="cycling-chart">
+<div id="cycling-statistics">
+    <div id="overall-statistic" class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ul>
+                        <li><span>Gefahrene Touren: {{statistic.totalCount}}</span></li>
+                        <li><span>Kilometer insgesamt: {{format-decimal statistic.overallTotalKm}}km</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="top-three-statistic" class="row">
         <div class="col-lg-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4 class="panel-title">Top 3: Geschwindigkeit Spitze</h4>
+                    <h6 class="panel-title">Top 3: Geschwindigkeit Spitze</h6>
                 </div>
                 <div class="panel-body">
                     <table class="table">
                         <thead><th>#</th><th>Geschwindigkeit</th><th>Datum</th><th>Details</th></thead>
                         <tbody>
-                            {{#each statistic.topSpeeds as |el index|}}
+                            {{#each statistic.bestTopSpeeds as |el index|}}
                                 <tr>
                                     <td>{{increment-index index}}</td>
                                     <td>{{el.topSpeed}}</td>
@@ -25,13 +37,13 @@
         <div class="col-lg-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4 class="panel-title">Top 3: Geschwindigkeit Durchschn.</h4>
+                    <h6 class="panel-title">Top 3: Geschwindigkeit Durchschn.</h6>
                 </div>
                 <div class="panel-body">
                     <table class="table">
                         <thead><th>#</th><th>Geschwindigkeit</th><th>Datum</th><th>Details</th></thead>
                         <tbody>
-                            {{#each statistic.avgSpeeds as |el index|}}
+                            {{#each statistic.bestAvgSpeeds as |el index|}}
                                 <tr>
                                     <td>{{increment-index index}}</td>
                                     <td>{{el.avgSpeed}}</td>
@@ -47,17 +59,17 @@
         <div class="col-lg-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4 class="panel-title">Top 3: Strecke gesamt</h4>
+                    <h6 class="panel-title">Top 3: Strecke gesamt</h6>
                 </div>
                 <div class="panel-body">
                     <table class="table">
                         <thead><th>#</th><th>Gesamtstrecke</th><th>Datum</th><th>Details</th></thead>
                         <tbody>
-                            {{#each statistic.totalKms as |el index|}}
+                            {{#each statistic.bestTotalKms as |el index|}}
                                 <tr>
                                     <td>{{increment-index index}}</td>
-                                    <td>{{format-date  el.date}}</td>
                                     <td>{{el.totalKm}}</td>
+                                    <td>{{format-date  el.date}}</td>
                                     <td><a href="#/cycling/{{el.id}}"><i class="fa fa-info"></i></a></td>
                                 </tr>
                             {{/each}}
@@ -68,7 +80,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12">
+        <div id="cycling-chart" class="col-lg-12">
             {{cycling-chart data=content}}
         </div>
     </div>

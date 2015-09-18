@@ -9,9 +9,9 @@ export default AbstractBase.extend({
     totalTime: DS.attr('time'),
 
     // Track
-    totalKm: DS.attr('string'),
-    avgSpeed: DS.attr('string'),
-    topSpeed: DS.attr('string'),
+    totalKm: DS.attr('number'),
+    avgSpeed: DS.attr('number'),
+    topSpeed: DS.attr('number'),
 
     // Weather
     condition: DS.attr('string'),
@@ -24,28 +24,19 @@ export default AbstractBase.extend({
     // required for form and model validation
     validation: {
         avgSpeed: {
-            type: 'string',
+            type: 'number',
             presence: false,
-            pattern: {
-                regexp: '^[0-9]{1,3}((\\.|\\,)[0-9]{1,2})?$',
-                text: '000.00 oder 000,00'
-            }
+            min: 0
         },
         topSpeed: {
-            type: 'string',
+            type: 'number',
             presence: false,
-            pattern: {
-                regexp: '^[0-9]{1,3}((\\.|\\,)[0-9]{1,2})?$',
-                text: '000.00 oder 000,00'
-            }
+            min: 0
         },
         totalKm: {
-            type: 'string',
+            type: 'number',
             presence: false,
-            pattern: {
-                regexp: '^[0-9]{1,3}((\\.|\\,)[0-9]{1,2})?$',
-                text: '000.00 oder 000,00'
-            }
+            min: 0
         },
         time20: {
             type: 'string',
@@ -74,17 +65,17 @@ export default AbstractBase.extend({
         windSpeed: {
             type: 'number',
             presence: false,
-            min: 1
+            min: 0
         },
         windStrength: {
             type: 'number',
             presence: false,
-            min: 1
+            min: 0
         },
         windBlasts: {
             type: 'number',
             presence: false,
-            min: 1
+            min: 0
         },
         temperature: {
             type: 'string',

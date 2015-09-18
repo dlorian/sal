@@ -2,6 +2,8 @@ var mongoose = require('mongoose'),
     extend   = require('mongoose-schema-extend'),
     moment   = require('moment');
 
+require('mongoose-big-decimal')(mongoose);
+
 var AbstractBaseSchema = require('./abstract-base').getSchema();
 
 var timeMatch   = [ /^([0-9]{1,2}\:)?[0-9]{2}\:[0-9]{2}$/ , "Time does not have the correct format [hh:mm:ss]. ({PATH} : {VALUE})"],
@@ -28,9 +30,9 @@ var cyclingSchema = AbstractBaseSchema.extend({
     windBlasts:   { type: Number, min: 0},
 
     // Track
-    totalKm:  { type: String, match: numberMatch },
-    topSpeed: { type: String, match: numberMatch },
-    avgSpeed: { type: String, match: numberMatch },
+    totalKm:  { type: mongoose.Schema.Types.BigDecimal },
+    topSpeed: { type: mongoose.Schema.Types.BigDecimal },
+    avgSpeed: { type: mongoose.Schema.Types.BigDecimal },
 
     // Times
     time20:    { type: String, match: timeMatch },

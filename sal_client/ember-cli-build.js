@@ -135,12 +135,17 @@ module.exports = function(defaults) {
     // Language of Datepicker
     app.import('bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.de.min.js');
 
+    // Big.js
+    app.import({
+        development: 'bower_components/big.js/big.js',
+        production:  'bower_components/big.js/big.min.js',
+    });
+
     // Decimal.js
     app.import({
         development: 'bower_components/decimal.js/decimal.js',
         production:  'bower_components/decimal.js/decimal.min.js',
     });
-
 
     return app.toTree();
 };

@@ -21,6 +21,7 @@
     "mocha": "^2.3.2",
     "moment": "^2.10.6",
     "mongoose": "^4.1.4",
+    "mongoose-big-decimal": "0.0.3",
     "mongoose-json-select": "^0.2.1",
     "mongoose-schema-extend": "^0.1.7",
     "morgan": "^1.6.1",

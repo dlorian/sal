@@ -16,8 +16,15 @@
 #cycling-chart {
 }
 
-#top-three-statistic {
-    th, td {
-        text-align: center;
+#cycling-statistics {
+    #overall-statistic {
+        ul li {
+            display:inline;
+        }
+    }
+    #top-three-statistic {
+        th, td {
+            text-align: center;
+        }
     }
 }

@@ -1,10 +1,15 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+
     statistic: {
-        topSpeeds: null,
-        avgSpeeds: null,
-        totalKms: null
+        totalCount: null,
+        longestTimes: null,
+        overallTotalKm: null,
+        bestTotalKms: null,
+        bestAvgSpeeds: null,
+        bestTopSpeeds: null,
+        yearStatistics: null
     },
 
     init: function() {
