@@ -15,6 +15,7 @@ var Cycling = require('../models/cycling').getModel();
 
 var isValid = function(str) {
     return (
+        str.length         !== 0 &&
         str.indexOf('x')     < 0 &&
         str.indexOf('-')     < 0 &&
         str.indexOf('k. A.') < 0 &&
@@ -52,7 +53,7 @@ var toCyclingObject = function(cyclingArray) {
         time30: getTime(cyclingArray[4]),
         avgSpeed: (function() {
             var speed = cyclingArray[5].replace(',', '.');
-            return isValid(speed) ? speed : null;
+            return  isValid(speed) ? speed : null;
         })(),
         topSpeed: (function() {
             var speed = cyclingArray[6].replace(',', '.');
@@ -99,7 +100,7 @@ var createCycling = function(cycling, user) {
     cycling = toCyclingObject(cycling);
     cyclingController.createCycling(cycling, user, function(err, createdCycling) {
         if(err) {
-            return console.err(err);
+            return console.error(err);
         }
         console.log('Cycling hinzugefügt.')
     });

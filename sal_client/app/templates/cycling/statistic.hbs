@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>
-    <div id="top-three-statistic" class="row">
+    <div class="top-three-statistic row">
         <div class="col-lg-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -78,6 +78,89 @@
                 </div>
             </div>
         </div>
+    </div><!-- ./row -->
+    <div class="top-three-statistic row">
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h6 class="panel-title">Top 3: Geschwindigkeit Spitze</h6>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead><th>#</th><th>Geschwindigkeit</th><th>Datum</th><th>Details</th></thead>
+                        <tbody>
+                            {{#each statistic.bestTime20 as |el index|}}
+                                <tr>
+                                    <td>{{increment-index index}}</td>
+                                    <td>{{el.time20}}</td>
+                                    <td>{{format-date el.date}}</td>
+                                    <td><a href="#/cycling/{{el.id}}"><i class="fa fa-info"></i></a></td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h6 class="panel-title">Top 3: Geschwindigkeit Durchschn.</h6>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead><th>#</th><th>Geschwindigkeit</th><th>Datum</th><th>Details</th></thead>
+                        <tbody>
+                            {{#each statistic.bestTime30 as |el index|}}
+                                <tr>
+                                    <td>{{increment-index index}}</td>
+                                    <td>{{el.time30}}</td>
+                                    <td>{{format-date el.date}}</td>
+                                    <td><a href="#/cycling/{{el.id}}"><i class="fa fa-info"></i></a></td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div><!-- ./row -->
+    <div class="row">
+    {{#each statistic.yearStatistics as |year|}}
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h6 class="panel-title">{{year.year}}</h6>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <p>Gefahrene Touren:<br>
+                            {{year.count}}</p>
+                        </div>
+                        <div class="col-lg-4">
+                            <p>Gesamtkilometer: <br>
+                            {{format-decimal year.totalKmOfYear}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <p>Ø Kilometer:<br>
+                            {{format-decimal year.avgTotalKmOfYear}}</p>
+                        </div>
+                        <div class="col-lg-4">
+                            <p>Ø Spitze:<br>
+                            {{format-decimal year.avgTopSpeedOfYear}}</p>
+                        </div>
+                        <div class="col-lg-4">
+                            <p>Ø Schnitt:<br>
+                            {{format-decimal year.avgAvgSpeedOfYear}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/each}}
     </div>
     <div class="row">
         <div id="cycling-chart" class="col-lg-12">

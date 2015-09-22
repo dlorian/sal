@@ -9,6 +9,8 @@ export default Ember.Controller.extend({
         bestTotalKms: null,
         bestAvgSpeeds: null,
         bestTopSpeeds: null,
+        bestTime20:  null,
+        bestTime30: null,
         yearStatistics: null
     },
 

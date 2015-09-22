@@ -32,6 +32,18 @@ var _findBestTopSpeeds = function(callback) {
     _fireQuery(query, callback);
 };
 
+var _findBestTime20 = function(callback) {
+    Logger.info('StatisticController', '_findBestTime20', 'Invocation of _findBestTime20().');
+    var query = Cycling.find().limit(3).sort({'time20': 1}).select('id time20 date').where('time20').ne(null);
+    _fireQuery(query, callback);
+};
+
+var _findBestTime30 = function(callback) {
+    Logger.info('StatisticController', '_findBestTime30', 'Invocation of _findBestTime30().');
+    var query = Cycling.find().limit(3).sort({'time30': 1}).select('id time30 date').where('time30').ne(null);
+    _fireQuery(query, callback);
+};
+
 var _countCyclings = function(callback) {
     Logger.info('StatisticController', '_countCyclings', 'Invocation of _countCyclings().');
     var query = Cycling.count();
@@ -59,7 +71,7 @@ var _overallTotalKm = function(callback) {
                 Logger.error('StatisticController', '_overallTotalKm', 'Error while aggregating total kilometers.');
                 return callback(err);
             }
-            console.log(data);
+
             return callback(null, data[0].overallTotalKm);
         }
     );
@@ -87,7 +99,7 @@ var _yearStatistics = function(callback) {
             return callback(null, data);
         }
     );
-}
+};
 
 exports.getStatistics = function(callback) {
     Logger.info('StatisticController', 'getStatistics', 'Invocation of getStatistics().');
@@ -100,6 +112,8 @@ exports.getStatistics = function(callback) {
         bestTotalKms: null,
         bestAvgSpeeds: null,
         bestTopSpeeds: null,
+        bestTime20: null,
+        bestTime30: null,
         yearStatistics: null
     };
 
@@ -108,7 +122,7 @@ exports.getStatistics = function(callback) {
             Logger.error('StatisticController', 'invokeCallback', 'Error while finding statistics occured.', err);
         }
         cbCounter++;
-        if(cbCounter === 7) {
+        if(cbCounter === 9) {
             callback(null, statistic);
         }
     };
@@ -164,6 +178,24 @@ exports.getStatistics = function(callback) {
             return invokeCallback(err);
         }
         statistic.bestTotalKms = data;
+        invokeCallback();
+    });
+
+    _findBestTime20(function(err, data) {
+        if(err) {
+            Logger.error('StatisticController', '_findBestTime20', 'Error while finding best time for 20 kilometers.');
+            return invokeCallback(err);
+        }
+        statistic.bestTime20 = data;
+        invokeCallback();
+    });
+
+    _findBestTime30(function(err, data) {
+        if(err) {
+            Logger.error('StatisticController', '_findBestTime30', 'Error while finding best times for 30 kilometers.');
+            return invokeCallback(err);
+        }
+        statistic.bestTime30 = data;
         invokeCallback();
     });
 
