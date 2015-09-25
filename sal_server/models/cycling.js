@@ -75,11 +75,6 @@ var getTime = function(timeNumber) {
     return fromTimeNumber(timeNumber);
 };
 
-var getNumber = function(number) {
-    console.log(number);
-    return number;
-};
-
 // Create a Schema for the model
 var cyclingSchema = AbstractBaseSchema.extend({
 

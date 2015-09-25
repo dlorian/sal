@@ -44,35 +44,33 @@ var _findBestTime30 = function(callback) {
     _fireQuery(query, callback);
 };
 
-var _countCyclings = function(callback) {
-    Logger.info('StatisticController', '_countCyclings', 'Invocation of _countCyclings().');
-    var query = Cycling.count();
-    _fireQuery(query, callback);
-};
-
 var _findLongestTimes = function(callback) {
     Logger.info('StatisticController', '_findLongestTimes', 'Invocation of _findLongestTimes().');
     var query = Cycling.find().limit(3).sort('-totalTime -totalKm').select('id totalTime totalKm date');
     _fireQuery(query, callback);
 };
 
-var _overallTotalKm = function(callback) {
+var _overallStatistics = function(callback) {
     Cycling.aggregate(
         [
             {
                 $group: {
                     _id: null,
-                    overallTotalKm: { $sum: "$totalKm"  }
+                    overallTotalKm: { $sum: "$totalKm" },
+                    overallAvgAvgSpeed: { $avg: "$avgSpeed" },
+                    overallAvgTopSpeed: { $avg: "$topSpeed" },
+                    overallAvgTotalKm: { $avg: "$totalKm" },
+                    count: {$sum: 1}
                 }
             }
         ],
         function (err, data) {
             if(err) {
-                Logger.error('StatisticController', '_overallTotalKm', 'Error while aggregating total kilometers.');
+                Logger.error('StatisticController', '_overallStatistics', 'Error while aggregating total kilometers.');
                 return callback(err);
             }
-
-            return callback(null, data[0].overallTotalKm);
+            console.log(data)
+            return callback(null, data[0]);
         }
     );
 };
@@ -106,14 +104,13 @@ exports.getStatistics = function(callback) {
     var cbCounter = 0;
 
     var statistic = {
-        totalCount: null,
         longestTimes: null,
-        overallTotalKm: null,
         bestTotalKms: null,
         bestAvgSpeeds: null,
         bestTopSpeeds: null,
         bestTime20: null,
         bestTime30: null,
+        overallStatistics: null,
         yearStatistics: null
     };
 
@@ -122,26 +119,21 @@ exports.getStatistics = function(callback) {
             Logger.error('StatisticController', 'invokeCallback', 'Error while finding statistics occured.', err);
         }
         cbCounter++;
-        if(cbCounter === 9) {
+        if(cbCounter === 8) {
             callback(null, statistic);
         }
     };
 
-    _overallTotalKm(function(err, data) {
+    _overallStatistics(function(err, data) {
         if(err) {
-            Logger.error('StatisticController', '_overallTotalKm', 'Error while aggregating cyclings.');
+            Logger.error('StatisticController', '_overallStatistics', 'Error while aggregating cyclings.');
             return invokeCallback(err);
         }
-        statistic.overallTotalKm = data;
-        invokeCallback();
-    });
 
-    _countCyclings(function(err, data) {
-        if(err) {
-            Logger.error('StatisticController', '_countCyclings', 'Error while counting cyclings.');
-            return invokeCallback(err);
-        }
-        statistic.totalCount = data;
+        // Remove group id of result
+        delete data._id;
+
+        statistic.overallStatistics = data;
         invokeCallback();
     });
 

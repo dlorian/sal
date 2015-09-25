@@ -24,6 +24,11 @@
 }
 
 #cycling-statistics {
+    span.unit {
+        padding-left: 1px;
+        font-size: smaller;
+    }
+
     #overall-statistic {
         ul li {
             display:inline;

@@ -5,12 +5,12 @@ export default Ember.Controller.extend({
     statistic: {
         totalCount: null,
         longestTimes: null,
-        overallTotalKm: null,
         bestTotalKms: null,
         bestAvgSpeeds: null,
         bestTopSpeeds: null,
         bestTime20:  null,
         bestTime30: null,
+        overallStatistics: null,
         yearStatistics: null
     },
 
