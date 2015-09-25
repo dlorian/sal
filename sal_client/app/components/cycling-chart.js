@@ -2,13 +2,21 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
     didInsertElement: function() {
-        this.renderChart1();
-        this.renderChart2();
+        var me = this;
+        this.renderMonthChart();
+
+        Ember.$('a[aria-controls="totalOverviewTab"]').on('shown.bs.tab', function () {
+            // render chart if the pill was clicked
+            me.renderTotalOverviewChart();
+        });
     },
 
-    renderChart1: function() {
-        var series = this.getSeries(this.prepareDataHash(this.get('data')));
-        var chart = Ember.$('#chart1').highcharts({
+    renderMonthChart: function() {
+        var series = this.getMonthSeries(this.get('data'));
+        Ember.$('#chart1').highcharts({
+            title: {
+                text: null
+            },
             xAxis: {
                 categories: [
                     'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'Septemper', 'Oktober', 'November', 'Dezember'
@@ -20,6 +28,7 @@ export default Ember.Component.extend({
                 }
             },
             yAxis: {
+                min: 0,
                 title: {
                     text: 'Gesamtstrecke (km)'
                 },
@@ -33,22 +42,25 @@ export default Ember.Component.extend({
                 valueSuffix: 'km'
             },
             legend: {
-                align: 'left',
+                align: 'right',
                 verticalAlign: 'top',
-                y: 20,
-                floating: true,
-                borderWidth: 0
+                layout: 'vertical',
+                x: 0,
+                y: 100
             },
             series: series
         });
     },
 
-    renderChart2: function() {
-        var series = this.getSeries2(this.prepareDataHash2(this.get('data')));
-        var chart = Ember.$('#chart2').highcharts({
+    renderTotalOverviewChart: function() {
+        var series = this.getTotalOverviewSeries(this.get('data'));
+        Ember.$('#chart2').highcharts({
             chart: {
                 type: 'spline',
                 zoomType: 'x'
+            },
+            title: {
+                text: null
             },
             xAxis: {
                 type: 'category',
@@ -85,43 +97,44 @@ export default Ember.Component.extend({
                 },
             },
             legend: {
-                align: 'left',
+                align: 'right',
                 verticalAlign: 'top',
-                y: 20,
-                floating: true,
-                borderWidth: 0
+                layout: 'vertical',
+                x: 0,
+                y: 100
             },
             series: series
         });
 
     },
 
-    getSeries: function(dataHash) {
+    getMonthSeries: function(data) {
+        var dataHash = this.prepareMonthDataHash(data);
         var series = [];
 
+        var getSeriesEntry = function(name, entryData) {
+            var dataArray = Ember.$.map(entryData, function(value) {
+                if(value && value.toNumber) {
+                    return [value.toNumber()];
+                }
+                return [value];
+            });
+
+            return  {
+                name: name.toString(),
+                data: dataArray
+            };
+        };
+
         for(var year in dataHash) {
-            series.push(this.getSeriesEntry(year, dataHash[year]));
+            series.push(getSeriesEntry(year, dataHash[year]));
         }
 
         return series;
     },
 
-
-    getSeriesEntry: function(name, data) {
-        var dataArray = Ember.$.map(data, function(value, index) {
-            if(value && value.toNumber) {
-                return [value.toNumber()];
-            }
-            return [value];
-        });
-
-        return  {
-            name: name.toString(),
-            data: dataArray
-        };
-    },
-
-    getSeries2: function(dataHash) {
+    getTotalOverviewSeries: function(data) {
+        var dataHash = this.prepareTotalOverviewDataHash(data)
         var series = [];
 
         for(var year in dataHash) {
@@ -138,11 +151,11 @@ export default Ember.Component.extend({
                 pointInterval: 30
             });
         }
-        return series
+        return series;
     },
 
-    prepareDataHash: function(data) {
-        var me = this, dataHash = {};
+    prepareMonthDataHash: function(data) {
+        var dataHash = { };
 
         var getYearObject = function() {
             var obj = {};
@@ -151,6 +164,7 @@ export default Ember.Component.extend({
             }
             return obj;
         };
+
 
         data.forEach(function(element) {
             var date = moment(element.get('date')).toDate();
@@ -168,10 +182,8 @@ export default Ember.Component.extend({
         return dataHash;
     },
 
-
-
-    prepareDataHash2: function(data) {
-        var me = this, dataHash = {};
+    prepareTotalOverviewDataHash: function(data) {
+        var dataHash = {};
 
         var getYearObject = function() {
             var obj = {};

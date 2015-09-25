@@ -101,16 +101,17 @@ module.exports = function(defaults) {
         production:  'bower_components/metisMenu/dist/metisMenu.min.js',
     });
 
-    // Chart.j
-    // app.import({
-    //     development: 'bower_components/Chart.js/Chart.js',
-    //     production:  'bower_components/Chart.js/Chart.min.js',
-    // });
-
+    // Highchart
     app.import({
         development: 'bower_components/highcharts/highcharts.src.js',
         production:  'bower_components/highcharts/highcharts.js',
     });
+
+    // Highstock
+    // app.import({
+    //     development: 'bower_components/highstock/highstock.src.js',
+    //     production:  'bower_components/highstock/highstock.js',
+    // });
 
     // Datatables jQuery
     app.import({
