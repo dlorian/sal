@@ -42,7 +42,7 @@
                 </div>
                 <div class="panel-body">
                     <table class="table">
-                        <thead><th>#</th><th>Geschwindigkeit</th><th>Datum</th><th>Details</th></thead>
+                        <thead><th>#</th><th>Geschwindigkeit</th><th>Datum</th><th></th></thead>
                         <tbody>
                             {{#each statistic.bestTopSpeeds as |el index|}}
                                 <tr>
@@ -64,7 +64,7 @@
                 </div>
                 <div class="panel-body">
                     <table class="table">
-                        <thead><th>#</th><th>Geschwindigkeit</th><th>Datum</th><th>Details</th></thead>
+                        <thead><th>#</th><th>Geschwindigkeit</th><th>Datum</th><th></th></thead>
                         <tbody>
                             {{#each statistic.bestAvgSpeeds as |el index|}}
                                 <tr>
@@ -86,7 +86,7 @@
                 </div>
                 <div class="panel-body">
                     <table class="table">
-                        <thead><th>#</th><th>Gesamtstrecke</th><th>Datum</th><th>Details</th></thead>
+                        <thead><th>#</th><th>Gesamtstrecke</th><th>Datum</th><th></th></thead>
                         <tbody>
                             {{#each statistic.bestTotalKms as |el index|}}
                                 <tr>
@@ -110,12 +110,13 @@
                 </div>
                 <div class="panel-body">
                     <table class="table">
-                        <thead><th>#</th><th>Zeit</th><th>Datum</th><th>Details</th></thead>
+                        <thead><th>#</th><th>Zeit</th><th>Ø km/h</th><th>Datum</th><th></th></thead>
                         <tbody>
                             {{#each statistic.bestTime20 as |el index|}}
                                 <tr>
                                     <td>{{increment-index index}}</td>
                                     <td>{{el.time20}}</td>
+                                    <td>{{format-decimal el.avgSpeed20}}</td>
                                     <td>{{format-date el.date}}</td>
                                     <td><a href="#/cycling/{{el.id}}"><i class="fa fa-info"></i></a></td>
                                 </tr>
@@ -132,12 +133,13 @@
                 </div>
                 <div class="panel-body">
                     <table class="table">
-                        <thead><th>#</th><th>Zeit</th><th>Datum</th><th>Details</th></thead>
+                        <thead><th>#</th><th>Zeit</th><th>Ø km/h</th><th>Datum</th><th></th></thead>
                         <tbody>
                             {{#each statistic.bestTime30 as |el index|}}
                                 <tr>
                                     <td>{{increment-index index}}</td>
                                     <td>{{el.time30}}</td>
+                                    <td>{{format-decimal el.avgSpeed30}}</td>
                                     <td>{{format-date el.date}}</td>
                                     <td><a href="#/cycling/{{el.id}}"><i class="fa fa-info"></i></a></td>
                                 </tr>

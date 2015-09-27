@@ -1,4 +1,8 @@
+var extend = require('util')._extend;
+
 var Cycling = require('../models/cycling').getModel();
+
+var timeMixin = require('../mixins/time-mixin');
 
 // Import Logger
 var Logger = require('../logging').logger();
@@ -69,7 +73,7 @@ var _overallStatistics = function(callback) {
                 Logger.error('StatisticController', '_overallStatistics', 'Error while aggregating total kilometers.');
                 return callback(err);
             }
-            console.log(data)
+
             return callback(null, data[0]);
         }
     );
@@ -97,6 +101,14 @@ var _yearStatistics = function(callback) {
             return callback(null, data);
         }
     );
+};
+
+var _avgSpeedForKm = function(km, time) {
+    var m = km * 1000;
+    // Convert time string into seconds
+    var timeNumber = timeMixin.toTimeNumber(time);
+
+    return (m / timeNumber) * 3.6;
 };
 
 exports.getStatistics = function(callback) {
@@ -178,7 +190,14 @@ exports.getStatistics = function(callback) {
             Logger.error('StatisticController', '_findBestTime20', 'Error while finding best time for 20 kilometers.');
             return invokeCallback(err);
         }
-        statistic.bestTime20 = data;
+
+        statistic.bestTime20 = [];
+
+        data.forEach(function(item) {
+            var element = extend(item.toObject(), {avgSpeed20: _avgSpeedForKm(20, item.time20)});
+            statistic.bestTime20.push(element);
+        });
+
         invokeCallback();
     });
 
@@ -187,7 +206,14 @@ exports.getStatistics = function(callback) {
             Logger.error('StatisticController', '_findBestTime30', 'Error while finding best times for 30 kilometers.');
             return invokeCallback(err);
         }
-        statistic.bestTime30 = data;
+
+        statistic.bestTime30 = [];
+
+        data.forEach(function(item) {
+            var element = extend(item.toObject(), {avgSpeed30: _avgSpeedForKm(30, item.time30)});
+            statistic.bestTime30.push(element);
+        });
+
         invokeCallback();
     });
 
