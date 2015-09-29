@@ -60,7 +60,6 @@ export default Ember.Controller.extend(Ember.Evented, {
             this.redirectToLogin(transition);
         },
         logout: function() {
-            debugger
             this.get('login').doLogout();
         }
     }

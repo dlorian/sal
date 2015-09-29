@@ -16,7 +16,7 @@ exports.isAuthenticated = function(request, response, next) {
     }
     else {
         Logger.error('LoginService', 'isAuthenticated', 'User is not authenticated.');
-        return response.send("401 Unauthorized", 401);
+        return response.status(401).send("401 Unauthorized");
     }
 };
 

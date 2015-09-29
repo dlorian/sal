@@ -155,9 +155,9 @@ export default Ember.Controller.extend({
     destroyLoggedInUser: function() {
         var user = this.get('loggedInUser.user');
         if(user) {
-            user.destroyRecord();
+            user.deleteRecord();
         }
-        this.set('loggedInUser', {isLoggedIn: false, user: null });
+        this.set('loggedInUser', { isLoggedIn: false, user: null });
     },
 
     actions: {
