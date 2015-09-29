@@ -1,4 +1,8 @@
 exports.toTimeNumber = function(timeString) {
+    if(!timeString || timeString.length === 0) {
+        return null;
+    }
+
     var time = timeString.split(':');
     time.forEach(function(item, index) {
         time[index] = parseInt(item);
