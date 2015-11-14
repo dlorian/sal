@@ -23,12 +23,11 @@ export default AuthenticationRoute.extend({
                 this.disconnectOutlet({parentView: 'application'});
                 this.set('error', false);
             }
-
             return true;
         },
 
         error: function(error) {
-            if(errror.errors) {
+            if(error.errors) {
                 var serverError = error.errors[0];
 
                 if (serverError && serverError.status == 401) {
@@ -38,6 +37,9 @@ export default AuthenticationRoute.extend({
                 else {
                     this.showError(serverError);
                 }
+            }
+            else {
+                this.showError(error);
             }
         }
     }

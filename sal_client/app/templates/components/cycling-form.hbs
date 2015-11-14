@@ -75,8 +75,15 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     <div class="form-group">
-                        <label for="condition"> Bedingungen:</label>
-                        {{input type="text"  value=model.condition class="form-control validate" name="condition" disabled=disabled}}
+                        <label for="condition" style="font-family:'weathericons'">Bedingungen:</label>
+                        <select class="selectpicker condition form-control" name="condition" disabled={{disabled}}>
+                            <option value="Sonnig" data-content="<i class='wi wi-day-sunny'><span class='option-text'>Sonnig</span></i>"></option>
+                            <option value="Leicht bewölkt" data-content="<i class='wi wi-day-cloudy'><span class='option-text'>Leicht bewölkt</span></i>">Leicht bewölkt</option>
+                            <option value="Leicht bewölkt / Regen" data-content="<i class='wi wi-rain-mix'><span class='option-text'>Leicht bewölkt / Regen</span></i>">Leicht bewölkt / Regen</option>
+                            <option value="Bewölkt" data-content="<i class='wi wi-cloud'><span class='option-text'>Bewölkt</span></i>">Bewölkt</option>
+                            <option value="Bewölkt / Regen" data-content="<i class='wi wi-showers'><span class='option-text'>Bewölkt / Regen</span></i>">Bewölkt / Regen</option>
+                            <option value="Regen" data-content="<i class='wi wi-rain'><span class='option-text'>Regen</span></i>">Regen</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
@@ -87,8 +94,18 @@
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     <div class="form-group">
-                        <label for="windDirection"> Windrichtung:</label>
-                        {{input type="text"  value=model.windDirection class="form-control validate" name="windDirection" disabled=disabled}}
+                        <label for="windDirection">Windrichtung:</label>
+{{!--                         {{input type="text"  value=model.windDirection class="form-control validate" name="windDirection" disabled=disabled}} --}}
+                        <select class="selectpicker windDirection form-control" name="windDirection" disabled={{disabled}}>
+                            <option value="Nord" data-content="<i class='wi wi-wind from-0-deg'></i><span class='option-text'>Nord</span>"></option>
+                            <option value="Nord-Ost" data-content="<i class='wi wi-wind from-45-deg'></i><span class='option-text'>Nord-Ost</span>"></option>
+                            <option value="Ost" data-content="<i class='wi wi-wind from-90-deg'></i><span class='option-text'>Ost</span>"></option>
+                            <option value="Süd-Ost" data-content="<i class='wi wi-wind from-135-deg'></i><span class='option-text'>Süd-Ost</span>"></option>
+                            <option value="Süd" data-content="<i class='wi wi-wind from-180-deg'></i><span class='option-text'>Süd</span>"></option>
+                            <option value="Süd-West" data-content="<i class='wi wi-wind from-225-deg'></i><span class='option-text'>Süd-West</span>"></option>
+                            <option value="West" data-content="<i class='wi wi-wind from-270-deg'></i><span class='option-text'>West</span>"></option>
+                            <option value="Nord-West" data-content="<i class='wi wi-wind from-315-deg'></i><span class='option-text'>Nord-West</span>"></option>
+                        </select>
                     </div>
                 </div>
             </div><!-- ./row -->

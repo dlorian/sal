@@ -19,10 +19,24 @@ export default Ember.Component.extend({
     $formContainer: null,
     $formFields: [],
 
+    $conditionSelectPicker: null,
+    $windDirectionSelectPicker: null,
+
     successMessageList: [],
 
     disabled: function() {
-        return this.get('isDisabled');
+        var isDisabled = this.get('isDisabled');
+        debugger
+        if(this.$conditionSelectPicker) {
+            this.$conditionSelectPicker.prop('disabled', isDisabled);
+            this.$conditionSelectPicker.selectpicker('refresh');
+        }
+
+        if(this.$windDirectionSelectPicker) {
+            this.$windDirectionSelectPicker.prop('disabled', isDisabled);
+            this.$windDirectionSelectPicker.selectpicker('refresh');
+        }
+        return isDisabled;
     }.property('isDisabled'),
 
     editDisabled: function() {
@@ -49,6 +63,19 @@ export default Ember.Component.extend({
         // Cache elements
         this.$formContainer = Ember.$('#cycling-form');
         this.$formFields = this.$formContainer.find('input.validate');
+
+        this.$conditionSelectPicker = Ember.$('.selectpicker.condition').selectpicker();
+        this.$windDirectionSelectPicker = Ember.$('.selectpicker.windDirection').selectpicker();
+
+        this.$conditionSelectPicker.on('change', function(event) {
+            var val = Ember.$(event.target).val();
+            me.set('model.condition', val);
+        });
+
+        this.$windDirectionSelectPicker.on('change', function(event) {
+            var val = Ember.$(event.target).val();
+            me.set('model.windDirection', val);
+        });
 
         // Add event listener for change evet to valdiate an input
         this.$formFields.each(function(index, field) {

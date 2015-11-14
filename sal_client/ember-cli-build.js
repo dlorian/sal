@@ -43,6 +43,18 @@ module.exports = function(defaults) {
         destDir: 'fonts'
     });
 
+    app.import('bower_components/weather-icons/font/weathericons-regular-webfont.ttf', {
+        destDir: 'fonts'
+    });
+
+    app.import('bower_components/weather-icons/font/weathericons-regular-webfont.woff', {
+        destDir: 'fonts'
+    });
+
+    app.import('bower_components/weather-icons/font/weathericons-regular-webfont.woff2', {
+        destDir: 'fonts'
+    });
+
     app.import('bower_components/datatables-plugins/i18n/German.lang', {
         destDir: 'i18n'
     });
@@ -66,6 +78,17 @@ module.exports = function(defaults) {
         production:  'bower_components/font-awesome/css/font-awesome.min.css',
     });
 
+    // Weather Icons
+    app.import({
+        development: 'bower_components/weather-icons/css/weather-icons-wind.css',
+        production:  'bower_components/weather-icons/css/weather-icons-wind.min.css',
+    });
+
+    app.import({
+        development: 'bower_components/weather-icons/css/weather-icons.css',
+        production:  'bower_components/weather-icons/css/weather-icons.min.css',
+    });
+
     // Metis Menu
     app.import({
         development: 'bower_components/metisMenu/dist/metisMenu.css',
@@ -78,6 +101,17 @@ module.exports = function(defaults) {
     // Bootstrap Template
     app.import('bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css');
 
+    // Bootstrap datepicker
+    app.import({
+        development: 'bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css',
+        production:  'bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css',
+    });
+
+    // Bootstrap Select
+    app.import({
+        development: 'bower_components/bootstrap-select/dist/css/bootstrap-select.css',
+        production:  'bower_components/bootstrap-select/dist/css/bootstrap-select.min.css',
+    });
 
     /*
      *  Import JS for theme
@@ -146,6 +180,18 @@ module.exports = function(defaults) {
     app.import({
         development: 'bower_components/decimal.js/decimal.js',
         production:  'bower_components/decimal.js/decimal.min.js',
+    });
+
+    // Bootstrap datepicker
+    app.import({
+        development: 'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
+        production:  'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
+    });
+
+    // Bootstrap Select
+    app.import({
+        development: 'bower_components/bootstrap-select/dist/js/bootstrap-select.js',
+        production:  'bower_components/bootstrap-select/dist/js/bootstrap-select.min.js',
     });
 
     return app.toTree();
