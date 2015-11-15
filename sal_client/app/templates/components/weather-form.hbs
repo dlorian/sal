@@ -1,0 +1,65 @@
+<div id="weather-form">
+    <div class="col-xs-12">
+        <h4><i class="fa fa-sun-o"></i> Wetter</h4>
+    </div>
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <label for="condition" style="font-family:'weathericons'">Bedingungen:</label>
+                    <select class="selectpicker condition form-control" name="condition" disabled={{disabled}}>
+                        {{#each weatherConditions as |condition|}}
+                            <option value={{condition.value}} data-content={{condition.icon}}></option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <label for="temperature">Temperatur:</label>
+                    {{input type="text" value=data.temperature class="form-control validate" name="temperature" disabled=disabled}}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <label for="windDirection">Windrichtung:</label>
+                    <select class="selectpicker windDirection form-control" name="windDirection" disabled={{disabled}}>
+                        {{#each windDirections as |direction|}}
+                            <option value={{direction.value}} data-content={{direction.icon}}></option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+        </div><!-- ./row -->
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <label for="windStrength"> Windstärke:</label>
+                    {{input type="text"  value=data.windStrength class="form-control validate" name="windStrength" disabled=disabled}}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <label for="windSpeed">Windgeschwindigkeit:</label>
+                    {{input type="text" value=data.windSpeed class="form-control validate" name="windSpeed" disabled=disabled}}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <label for="windBlasts">Böen:</label>
+                    {{input type="text" value=data.windBlasts class="form-control validate" name="windBlasts" disabled=disabled}}
+                </div>
+            </div>
+        </div><!-- ./row -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h4><i class="fa fa-pencil"></i> Beschreibung</h4>
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-8">
+                <div class="form-group">
+                    {{textarea value=data.description class="form-control validate" name="description" disabled=disabled}}
+                </div>
+            </div>
+        </div><!-- ./row -->
+    </div>
+</div>

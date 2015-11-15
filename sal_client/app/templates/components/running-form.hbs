@@ -80,61 +80,7 @@
         </div><!-- ./col-xs-12 -->
     </div><!-- ./row -->
     <div class="row">
-        <div class="col-xs-12">
-            <h4><i class="fa fa-sun-o"></i> Wetter</h4>
-        </div>
-        <div class="col-xs-12">
-            <div class="row">
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <div class="form-group">
-                        <label for="condition"> Bedingungen:</label>
-                        {{input type="text"  value=model.condition class="form-control validate" name="condition" disabled=disabled}}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <div class="form-group">
-                        <label for="temperature">Temperatur:</label>
-                        {{input type="text" value=model.temperature class="form-control validate" name="temperature" disabled=disabled}}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <div class="form-group">
-                        <label for="windDirection"> Windrichtung:</label>
-                        {{input type="text"  value=model.windDirection class="form-control validate" name="windDirection" disabled=disabled}}
-                    </div>
-                </div>
-            </div><!-- ./row -->
-            <div class="row">
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <div class="form-group">
-                        <label for="windStrength"> Windstärke:</label>
-                        {{input type="text"  value=model.windStrength class="form-control validate" name="windStrength" disabled=disabled}}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <div class="form-group">
-                        <label for="windSpeed">Windgeschwindigkeit:</label>
-                        {{input type="text" value=model.windSpeed class="form-control validate" name="windSpeed" disabled=disabled}}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <div class="form-group">
-                        <label for="windBlasts">Böen:</label>
-                        {{input type="text" value=model.windBlasts class="form-control validate" name="windBlasts" disabled=disabled}}
-                    </div>
-                </div>
-            </div><!-- ./row -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <h4><i class="fa fa-pencil"></i> Beschreibung</h4>
-                </div>
-                <div class="col-xs-12 col-sm-8 col-md-8">
-                    <div class="form-group">
-                        {{textarea value=model.description class="form-control validate" name="description" disabled=disabled}}
-                    </div>
-                </div>
-            </div><!-- ./row -->
-        </div>
+        {{weather-form data=model isDisabled=disabled}}
     </div><!-- ./row -->
     <div class="row">
         <div class="col-xs-12">
