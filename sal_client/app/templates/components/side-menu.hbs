@@ -2,13 +2,13 @@
     <li>
         {{#link-to 'index'}}<i class="fa fa-home fa-fw"></i> Start{{/link-to}}
     </li>
-    {{#unless loggedInUser.isLoggedIn}}
+    {{#unless isLoggedIn}}
         <li>
             {{#link-to 'login'}}<i class="fa fa-sign-in fa-fw"></i> Anmelden{{/link-to}}
         </li>
     {{else}}
         <li>
-            <a href="#" class="active"><i class="fa fa-files-o fa-fw"></i> Radfahren<span class="fa arrow"></span></a>
+            <a href="#"><i class="fa fa-files-o fa-fw"></i> Radfahren<span class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
                 <li>
                     {{#link-to 'cycling.list'}}<i class="fa fa-list fa-fw"></i> Einträge{{/link-to}}
@@ -16,8 +16,7 @@
                     {{#link-to 'cycling.statistic'}}<i class="fa fa-plus fa-fw"></i> Statistiken{{/link-to}}
                     {{#link-to 'cycling.chart'}}<i class="fa fa-plus fa-fw"></i> Charts{{/link-to}}
                 </li>
-            </ul>
-            <!-- /.nav-second-level -->
+            </ul><!-- /.nav-second-level -->
         </li>
         <li>
             <a href="#"><i class="fa fa-files-o fa-fw"></i> Laufen<span class="fa arrow"></span></a>
@@ -28,8 +27,7 @@
                     {{#link-to 'running.statistic'}}<i class="fa fa-plus fa-fw"></i> Statistiken{{/link-to}}
                     {{#link-to 'running.chart'}}<i class="fa fa-plus fa-fw"></i> Charts{{/link-to}}
                 </li>
-            </ul>
-            <!-- /.nav-second-level -->
+            </ul><!-- /.nav-second-level -->
         </li>
     {{/unless}}
 </ul>
